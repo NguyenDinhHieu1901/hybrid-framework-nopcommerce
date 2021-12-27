@@ -31,7 +31,6 @@ public class RegisterPageObject extends BasePage {
 	public void inputToEmailTextbox(String emailAddress) {
 		waitForElementVisible(driver, RegisterPageUI.EMAIL_ADDRESS_TEXTBOX);
 		sendkeyToElement(driver, RegisterPageUI.EMAIL_ADDRESS_TEXTBOX, emailAddress);
-
 	}
 
 	public void inputToPasswordTextbox(String password) {
@@ -43,7 +42,6 @@ public class RegisterPageObject extends BasePage {
 	public void inputToConfirmPasswordTextbox(String password) {
 		waitForElementVisible(driver, RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX);
 		sendkeyToElement(driver, RegisterPageUI.CONFIRM_PASSWORD_TEXTBOX, password);
-
 	}
 
 	public String getErrorMessageAtFirstNameTextbox() {
@@ -79,7 +77,6 @@ public class RegisterPageObject extends BasePage {
 	public void clickToLogoutLink() {
 		waitForClickable(driver, RegisterPageUI.LOGOUT_LINK);
 		clickToElement(driver, RegisterPageUI.LOGOUT_LINK);
-
 	}
 
 	public String getErrorExistingEmailMessage() {
@@ -110,7 +107,6 @@ public class RegisterPageObject extends BasePage {
 	public void selectDOBYear(String dobYear) {
 		waitForElementVisible(driver, RegisterPageUI.DOB_YEAR_DROPDOWN);
 		selectItemInDefaultDropdown(driver, RegisterPageUI.DOB_YEAR_DROPDOWN, dobYear);
-		
 	}
 
 	public void inputToCompanyNameTextbox(String companyName) {
