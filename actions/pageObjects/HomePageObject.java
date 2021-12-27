@@ -30,19 +30,16 @@ public class HomePageObject extends BasePage {
 	public void clickToRegisterLink() {
 		waitForClickable(driver, HomePageUI.REGISTER_LINK);
 		clickToElement(driver, HomePageUI.REGISTER_LINK);
-		
 	}
 
 	public void clickToLoginLink() {
 		waitForClickable(driver, HomePageUI.LOGIN_LINK);
 		clickToElement(driver, HomePageUI.LOGIN_LINK);
-		
 	}
 
 	public void clickToMyAccountLink() {
 		waitForClickable(driver, HomePageUI.MY_ACCOUNT_LINK);
 		clickToElement(driver, HomePageUI.MY_ACCOUNT_LINK);
-		
 	}
 
 	public String getTitleHomePage() {
@@ -57,6 +54,11 @@ public class HomePageObject extends BasePage {
 	public void clickToSubmenuDesktopsLink() {
 		waitForClickable(driver, HomePageUI.DESKTOPS_SUBMENU_LINK);
 		clickToElement(driver, HomePageUI.DESKTOPS_SUBMENU_LINK);
+	}
+
+	public boolean isMyAccountLinkDisplayed() {
+		waitForElementVisible(driver, HomePageUI.MY_ACCOUNT_LINK);
+		return isElementDisplay(driver, HomePageUI.MY_ACCOUNT_LINK);
 	}
 
 }
