@@ -15,11 +15,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import pageObjects.nopCommerce.AddressesPageObject;
-import pageObjects.nopCommerce.CustomerInfoPageObject;
-import pageObjects.nopCommerce.MyProductReviewsPageObject;
-import pageObjects.nopCommerce.RewardPointPageObject;
-import pageUIs.nopCommerce.BasePageUI;
+import pageObjects.nopCommerce.user.UserAddressesPageObject;
+import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
+import pageObjects.nopCommerce.user.UserMyProductReviewsPageObject;
+import pageObjects.nopCommerce.admin.AdminLoginPageObject;
+import pageObjects.nopCommerce.user.PageGeneratorManager;
+import pageObjects.nopCommerce.user.UserRewardPointPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageUIs.nopCommerce.user.BasePageUI;
 
 /**
  * <h2>class BasePage là 1 class dùng chung đã wrapper (gói lại) các function/method của Selenium WebDriver để cho các class khác (có liên quan) như là tầng
@@ -38,56 +41,56 @@ public class BasePage {
 		return new BasePage();
 	}
 
-	protected void openPageUrl(WebDriver driver, String pageUrl) {
+	public void openPageUrl(WebDriver driver, String pageUrl) {
 		driver.get(pageUrl);
 	}
 
-	protected String getPageTitle(WebDriver driver) {
+	public String getPageTitle(WebDriver driver) {
 		return driver.getTitle();
 	}
 
-	protected String getCurrentUrl(WebDriver driver) {
+	public String getCurrentUrl(WebDriver driver) {
 		return driver.getCurrentUrl();
 	}
 
-	protected String getPageSourceCode(WebDriver driver) {
+	public String getPageSourceCode(WebDriver driver) {
 		return driver.getPageSource();
 	}
 
-	protected void backToPage(WebDriver driver) {
+	public void backToPage(WebDriver driver) {
 		driver.navigate().back();
 	}
 
-	protected void forwardToPage(WebDriver driver) {
+	public void forwardToPage(WebDriver driver) {
 		driver.navigate().forward();
 	}
 
-	protected void refreshCurrentPage(WebDriver driver) {
+	public void refreshCurrentPage(WebDriver driver) {
 		driver.navigate().refresh();
 	}
 
-	protected Alert waitForAlertPresence(WebDriver driver) {
+	public Alert waitForAlertPresence(WebDriver driver) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
 		return explicitWait.until(ExpectedConditions.alertIsPresent());
 	}
 
-	protected void acceptAlert(WebDriver driver) {
+	public void acceptAlert(WebDriver driver) {
 		waitForAlertPresence(driver).accept();
 	}
 
-	protected void cancleAlert(WebDriver driver) {
+	public void cancleAlert(WebDriver driver) {
 		waitForAlertPresence(driver).dismiss();
 	}
 
-	protected String getAlertText(WebDriver driver) {
+	public String getAlertText(WebDriver driver) {
 		return waitForAlertPresence(driver).getText();
 	}
 
-	protected void sendkeyToAlert(WebDriver driver, String textValue) {
+	public void sendkeyToAlert(WebDriver driver, String textValue) {
 		waitForAlertPresence(driver).sendKeys(textValue);
 	}
 
-	protected void switchToWindonByID(WebDriver driver, String oppositeWindow) {
+	public void switchToWindonByID(WebDriver driver, String oppositeWindow) {
 
 		Set<String> allPageID = driver.getWindowHandles();
 
@@ -99,7 +102,7 @@ public class BasePage {
 		}
 	}
 
-	protected void switchToWindowByTitle(WebDriver driver, String expectedPageTitle) {
+	public void switchToWindowByTitle(WebDriver driver, String expectedPageTitle) {
 
 		Set<String> allPageID = driver.getWindowHandles();
 
@@ -112,7 +115,7 @@ public class BasePage {
 		}
 	}
 
-	protected void closeALlTabWithoutParent(WebDriver driver) {
+	public void closeALlTabWithoutParent(WebDriver driver) {
 		String parentID = driver.getWindowHandle();
 
 		Set<String> allPageID = driver.getWindowHandles();
@@ -350,28 +353,40 @@ public class BasePage {
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
 	}
 	
-	public CustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
+	public UserCustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.CUSTOMER_INFO_LINK);
 		clickToElement(driver, BasePageUI.CUSTOMER_INFO_LINK);
-		return new CustomerInfoPageObject(driver);
+		return PageGeneratorManager.getUserCustomerInfoPage(driver);
 	}
 	
-	public AddressesPageObject openAddressesPage(WebDriver driver) {
+	public UserAddressesPageObject openAddressesPage(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.ADDRESSES_LINK);
 		clickToElement(driver, BasePageUI.ADDRESSES_LINK);
-		return new AddressesPageObject(driver);
+		return PageGeneratorManager.getUserAddressesPage(driver);
 	}
 	
-	public RewardPointPageObject openRewardPointPage(WebDriver driver) {
+	public UserRewardPointPageObject openRewardPointPage(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.REWARD_POINT_LINK);
 		clickToElement(driver, BasePageUI.REWARD_POINT_LINK);
-		return new RewardPointPageObject(driver);
+		return PageGeneratorManager.getUserRewardPointPage(driver);
 	}
 	
-	public MyProductReviewsPageObject openMyProductReviewsPage(WebDriver driver) {
+	public UserMyProductReviewsPageObject openMyProductReviewsPage(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
 		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
-		return new MyProductReviewsPageObject(driver);
+		return PageGeneratorManager.getUserMyProductReviewsPage(driver);
+	}
+	
+	public UserHomePageObject clickToLogoutLinkAtUser(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.LOGOUT_LINK_AT_USER);
+		clickToElement(driver, BasePageUI.LOGOUT_LINK_AT_USER);
+		return PageGeneratorManager.getUserHomePage(driver);
+	}
+	
+	public AdminLoginPageObject clickToLogoutLinkAtAdmin(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.LOGOUT_LINK_AT_ADMIN);
+		clickToElement(driver, BasePageUI.LOGOUT_LINK_AT_ADMIN);
+		return PageGeneratorManager.getAdminLoginPage(driver);
 	}
 	
 	private long explicitLongTime = 30;
