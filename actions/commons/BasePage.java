@@ -164,15 +164,25 @@ public class BasePage {
 
 	private WebElement getWebElement(WebDriver driver, String locatorType) {
 		return driver.findElement(getByLocator(locatorType));
-
 	}
 
 	private List<WebElement> getListWebElement(WebDriver driver, String locatorType) {
 		return driver.findElements(getByLocator(locatorType));
 	}
 
+	private String getDynamicLocator(String locatorType, String... dynamicValues) {
+		if (locatorType.startsWith("xpath=") || locatorType.startsWith("Xpath=") || locatorType.startsWith("XPATH=")) {
+			locatorType = String.format(locatorType, (Object[]) dynamicValues);
+		}
+		return locatorType;
+	}
+
 	protected void clickToElement(WebDriver driver, String locatorType) {
 		getWebElement(driver, locatorType).click();
+	}
+
+	protected void clickToElement(WebDriver driver, String locatorType, String... dynamicValues) {
+		getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).click();
 	}
 
 	protected void sendkeyToElement(WebDriver driver, String locatorType, String textValue) {
@@ -181,22 +191,47 @@ public class BasePage {
 		element.sendKeys(textValue);
 	}
 
+	protected void sendkeyToElement(WebDriver driver, String locatorType, String textValue, String... dynamicValues) {
+		WebElement element = getWebElement(driver, getDynamicLocator(locatorType, dynamicValues));
+		element.clear();
+		element.sendKeys(textValue);
+	}
+
 	protected String getElementText(WebDriver driver, String locatorType) {
 		return getWebElement(driver, locatorType).getText();
+	}
+
+	protected String getElementText(WebDriver driver, String locatorType, String... dynamicValues) {
+		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).getText();
 	}
 
 	protected void selectItemInDefaultDropdown(WebDriver driver, String locatorType, String textItem) {
 		Select select = new Select(getWebElement(driver, locatorType));
 		select.selectByVisibleText(textItem);
 	}
-
+	
+	protected void selectItemInDefaultDropdown(WebDriver driver, String locatorType, String textItem, String...dynamicValues) {
+		Select select = new Select(getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)));
+		select.selectByVisibleText(textItem);
+	}
+	
 	protected String getFirstSelectedItemDefaultDropdown(WebDriver driver, String locatorType) {
 		Select select = new Select(getWebElement(driver, locatorType));
 		return select.getFirstSelectedOption().getText();
 	}
 
+	protected String getFirstSelectedItemDefaultDropdown(WebDriver driver, String locatorType, String...dynamicValues) {
+		Select select = new Select(getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)));
+		return select.getFirstSelectedOption().getText();
+	}
+	
 	protected boolean isDropdownMultiple(WebDriver driver, String locatorType) {
 		Select select = new Select(getWebElement(driver, locatorType));
+		return select.isMultiple();
+	}
+
+	protected boolean isDropdownMultiple(WebDriver driver, String locatorType, String...dynamicValues) {
+		Select select = new Select(getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)));
 		return select.isMultiple();
 	}
 
@@ -235,11 +270,15 @@ public class BasePage {
 	protected String getHexaColorFromRGBA(String rgbaValue) {
 		return Color.fromString(rgbaValue).asHex();
 	}
-
+	
 	protected int getElementSize(WebDriver driver, String locatorType) {
 		return getListWebElement(driver, locatorType).size();
 	}
 
+	protected int getElementSize(WebDriver driver, String locatorType, String...dynamicValues) {
+		return getListWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).size();
+	}
+	
 	protected void checkToDefaultCheckboxRadio(WebDriver driver, String locatorType) {
 		WebElement element = getWebElement(driver, locatorType);
 		if (!element.isSelected()) {
@@ -247,23 +286,49 @@ public class BasePage {
 		}
 	}
 
+	protected void checkToDefaultCheckboxRadio(WebDriver driver, String locatorType, String...dynamicValues) {
+		WebElement element = getWebElement(driver, getDynamicLocator(locatorType, dynamicValues));
+		if (!element.isSelected()) {
+			element.click();
+		}
+	}
+	
 	protected void uncheckToDefaultCheckbox(WebDriver driver, String locatorType) {
 		WebElement element = getWebElement(driver, locatorType);
 		if (element.isSelected()) {
 			element.click();
 		}
 	}
-
+	
+	protected void uncheckToDefaultCheckbox(WebDriver driver, String locatorType, String...dynamicValues) {
+		WebElement element = getWebElement(driver, getDynamicLocator(locatorType, dynamicValues));
+		if (element.isSelected()) {
+			element.click();
+		}
+	}
+	
 	protected boolean isElementDisplay(WebDriver driver, String locatorType) {
 		return getWebElement(driver, locatorType).isDisplayed();
 	}
 
+	protected boolean isElementDisplay(WebDriver driver, String locatorType, String...dynamicValues) {
+		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).isDisplayed();
+	}
+	
 	protected boolean isElementEnabled(WebDriver driver, String locatorType) {
 		return getWebElement(driver, locatorType).isEnabled();
 	}
 
+	protected boolean isElementEnabled(WebDriver driver, String locatorType, String...dynamicValues) {
+		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).isEnabled();
+	}
+	
 	protected boolean isElementSelected(WebDriver driver, String locatorType) {
 		return getWebElement(driver, locatorType).isSelected();
+	}
+
+	protected boolean isElementSelected(WebDriver driver, String locatorType, String...dynamicValues) {
+		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).isSelected();
 	}
 
 	protected void switchToFrameIframe(WebDriver driver, String locatorType) {
@@ -347,30 +412,77 @@ public class BasePage {
 		};
 		return explicitWait.until(jQueryLoad) && explicitWait.until(jsLoad);
 	}
-
+	
 	protected void waitForElementVisible(WebDriver driver, String locatorType) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(locatorType)));
 	}
 
+	protected void waitForElementVisible(WebDriver driver, String locatorType, String...dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(getDynamicLocator(locatorType, dynamicValues))));
+	}
+	
 	protected void waitForAllElementVisible(WebDriver driver, String locatorType) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(locatorType)));
 	}
 
+	protected void waitForAllElementVisible(WebDriver driver, String locatorType, String...dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(getDynamicLocator(locatorType, dynamicValues))));
+	}
+	
 	protected void waitForElementInvisible(WebDriver driver, String locatorType) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(locatorType)));
 	}
 
+	protected void waitForElementInvisible(WebDriver driver, String locatorType, String...dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(getDynamicLocator(locatorType, dynamicValues))));
+	}
+	
 	protected void waitForAllElementInvisible(WebDriver driver, String locatorType) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, locatorType)));
 	}
 
+	protected void waitForAllElementInvisible(WebDriver driver, String locatorType, String...dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, getDynamicLocator(locatorType, dynamicValues))));
+	}
+
 	protected void waitForClickable(WebDriver driver, String locatorType) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(locatorType)));
+	}
+	
+	protected void waitForClickable(WebDriver driver, String locatorType, String...dynamicValues) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(getDynamicLocator(locatorType, dynamicValues))));
+	}
+	
+	public BasePage openPagesAtMyAccountByName(WebDriver driver, String pageName) {
+		waitForClickable(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation",pageName);
+		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation", pageName);
+		switch (pageName) {
+		case "Customer info":
+			return PageGeneratorManager.getUserCustomerInfoPage(driver);
+		case "Addresses":
+			return PageGeneratorManager.getUserAddressesPage(driver);
+		case "Reward points":
+			return PageGeneratorManager.getUserRewardPointPage(driver);
+		case "My product reviews":
+			return PageGeneratorManager.getUserMyProductReviewsPage(driver);
+		default:
+			throw new RuntimeException("Page Name is not available.");
+		}
+	}
+	
+	public void openPagesAtMyAccountByPageName(WebDriver driver, String pageName) {
+		waitForClickable(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation", pageName);
+		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation", pageName);
 	}
 
 	public UserCustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
