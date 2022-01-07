@@ -497,6 +497,11 @@ public class BasePage {
 		hoverMouseToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MENU_AREA, "top-menu notmobile", menuName);
 		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MENU_AREA, "top-menu notmobile", submenuName);
 	}
+	
+	public void openPagesAtFooterByName(WebDriver driver, String pageName) {
+		waitForElementVisible(driver, BasePageUI.DYNAMIC_PAGES_AT_FOOTER_AREA, "footer-upper", pageName);
+		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_FOOTER_AREA, "footer-upper", pageName);
+	}
 
 	public UserCustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.CUSTOMER_INFO_LINK);

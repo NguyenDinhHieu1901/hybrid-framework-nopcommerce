@@ -50,4 +50,8 @@ public class PageGeneratorManager {
 	public static UserDesktopsPageObject getUserDesktopsPage(WebDriver driver) {
 		return new UserDesktopsPageObject(driver);
 	}
+	
+	public static UserSearchPageObject getUserSearchPage(WebDriver driver) {
+		return new UserSearchPageObject(driver);
+	}
 }

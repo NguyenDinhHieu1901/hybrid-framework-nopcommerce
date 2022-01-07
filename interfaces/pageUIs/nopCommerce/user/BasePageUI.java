@@ -11,4 +11,6 @@ public class BasePageUI {
 	public static final String LOGOUT_LINK_AT_ADMIN = "xpath=//a[text()='Logout']";
 	public static final String DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA = "xpath=//div[contains(@class,'%s')]//a[text()='%s']";
 	public static final String DYNAMIC_PAGES_AT_MENU_AREA = "xpath=//ul[@class='%s']//a[text()='%s']";
+	public static final String DYNAMIC_PAGES_AT_FOOTER_AREA = "xpath=//div[@class='%s']//a[text()='%s']";
+	//div[@class='footer-upper']//a[text()='Search']
 }
