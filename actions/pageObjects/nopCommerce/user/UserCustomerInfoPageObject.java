@@ -8,7 +8,7 @@ import pageUIs.nopCommerce.user.CustomerInfoPageUI;
 public class UserCustomerInfoPageObject extends BasePage {
 
 	private WebDriver driver;
-	
+
 	public UserCustomerInfoPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
@@ -58,6 +58,18 @@ public class UserCustomerInfoPageObject extends BasePage {
 		clickToElement(driver, CustomerInfoPageUI.SAVE_BUTTON);
 	}
 
+	public void updateCustomerInfomationOfUser(String firstNameUpdate, String lastNameUpdate, String dobDayUpdate, String dobMonthUpdate, String dobYearUpdate, String emailAddressUpdate, String companyNameUpdate) {
+		clickToFemaleRadioButton();
+		inputToFirstNameTextbox(firstNameUpdate);
+		inputToLastNameTextbox(lastNameUpdate);
+		selectDOBDay(dobDayUpdate);
+		selectDOBMonth(dobMonthUpdate);
+		selectDOBYear(dobYearUpdate);
+		inputToEmailTextbox(emailAddressUpdate);
+		inputToCompanyNameTextbox(companyNameUpdate);
+		clickToSaveButton();
+	}
+
 	public boolean isFemaleRadioButtonSelected() {
 		return isElementSelected(driver, CustomerInfoPageUI.GENDER_FEMALE_RADIO);
 	}
@@ -101,5 +113,4 @@ public class UserCustomerInfoPageObject extends BasePage {
 		waitForElementVisible(driver, CustomerInfoPageUI.NEWSLETTER_CHECKBOX);
 		return isElementSelected(driver, CustomerInfoPageUI.NEWSLETTER_CHECKBOX);
 	}
-
 }

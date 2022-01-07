@@ -30,16 +30,24 @@ public class PageGeneratorManager {
 	public static UserRewardPointPageObject getUserRewardPointPage(WebDriver driver) {
 		return new UserRewardPointPageObject(driver);
 	}
-
+	
 	public static UserMyProductReviewsPageObject getUserMyProductReviewsPage(WebDriver driver) {
 		return new UserMyProductReviewsPageObject(driver);
 	}
-
+	
+	public static UserChangePasswordPageObject getUserChangePasswordPage(WebDriver driver) {
+		return new UserChangePasswordPageObject(driver);
+	}
+	
 	public static AdminLoginPageObject getAdminLoginPage(WebDriver driver) {
 		return new AdminLoginPageObject(driver);
 	}
 	
 	public static AdminDashboardPageObject getAdminDashboardPage(WebDriver driver) {
 		return new AdminDashboardPageObject(driver);
+	}
+
+	public static UserDesktopsPageObject getUserDesktopsPage(WebDriver driver) {
+		return new UserDesktopsPageObject(driver);
 	}
 }

@@ -41,6 +41,7 @@ public class UserChangePasswordPageObject extends BasePage{
 	public void clickToCloseChangePasswordSuccessMessage() {
 		waitForClickable(driver, ChangePasswordPageUI.CLOSE_CHANGE_PASSWORD_SUCCESS_MESSAGE);
 		clickToElement(driver, ChangePasswordPageUI.CLOSE_CHANGE_PASSWORD_SUCCESS_MESSAGE);
+		sleepInSecond(1);
 	}
 
 }

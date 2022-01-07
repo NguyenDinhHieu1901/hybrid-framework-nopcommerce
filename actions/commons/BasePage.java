@@ -343,6 +343,11 @@ public class BasePage {
 		Actions action = new Actions(driver);
 		action.moveToElement(getWebElement(driver, locatorType)).perform();
 	}
+	
+	protected void hoverMouseToElement(WebDriver driver, String locatorType, String...dynamicValues) {
+		Actions action = new Actions(driver);
+		action.moveToElement(getWebElement(driver, getDynamicLocator(locatorType, dynamicValues))).perform();
+	}
 
 	protected void scrollToBottomPage(WebDriver driver) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
@@ -475,6 +480,8 @@ public class BasePage {
 			return PageGeneratorManager.getUserRewardPointPage(driver);
 		case "My product reviews":
 			return PageGeneratorManager.getUserMyProductReviewsPage(driver);
+		case "Change password":
+			return PageGeneratorManager.getUserChangePasswordPage(driver);
 		default:
 			throw new RuntimeException("Page Name is not available.");
 		}
@@ -483,6 +490,12 @@ public class BasePage {
 	public void openPagesAtMyAccountByPageName(WebDriver driver, String pageName) {
 		waitForClickable(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation", pageName);
 		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation", pageName);
+	}
+	
+	public void openPagesAtMenuByName(WebDriver driver, String menuName, String submenuName) {
+		waitForElementVisible(driver, BasePageUI.DYNAMIC_PAGES_AT_MENU_AREA, "top-menu notmobile", menuName);
+		hoverMouseToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MENU_AREA, "top-menu notmobile", menuName);
+		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MENU_AREA, "top-menu notmobile", submenuName);
 	}
 
 	public UserCustomerInfoPageObject openCustomerInfoPage(WebDriver driver) {

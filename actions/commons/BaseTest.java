@@ -149,7 +149,7 @@ public class BaseTest {
 		return driver;
 	}
 
-	public void getEnvironmentBrowser(String environmentName, String url) {
+	protected void getEnvironmentBrowser(String environmentName, String url) {
 		switch (environmentName) {
 		case "dev":
 			driver.get(url);
@@ -162,7 +162,7 @@ public class BaseTest {
 		}
 	}
 
-	public int getEmailFaker() {
+	protected int generatorNumberRandom() {
 		Random rand = new Random();
 		return rand.nextInt(9999);
 	}

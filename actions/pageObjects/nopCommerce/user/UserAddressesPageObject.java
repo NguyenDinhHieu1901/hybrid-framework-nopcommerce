@@ -78,6 +78,7 @@ public class UserAddressesPageObject extends BasePage {
 	}
 
 	public String getNameOfUser() {
+		sleepInSecond(1);
 		waitForElementVisible(driver, AddressesPageUI.NAME_USER_UPDATED);
 		return getElementText(driver, AddressesPageUI.NAME_USER_UPDATED);
 	}
