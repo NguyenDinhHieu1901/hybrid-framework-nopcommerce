@@ -1,18 +1,17 @@
-package pageObjects.nopCommerce;
+package pageObjects.nopCommerce.user;
 
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
-import pageUIs.nopCommerce.AddressesPageUI;
+import pageUIs.nopCommerce.user.AddressesPageUI;
 
-public class AddressesPageObject extends BasePage{
-	
+public class UserAddressesPageObject extends BasePage {
 	private WebDriver driver;
-	
-	public AddressesPageObject(WebDriver driver) {
+
+	public UserAddressesPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
-	
+
 	public void clickToAddNewButton() {
 		waitForClickable(driver, AddressesPageUI.ADD_NEW_ADDRESS_BUTTON);
 		clickToElement(driver, AddressesPageUI.ADD_NEW_ADDRESS_BUTTON);
@@ -88,7 +87,6 @@ public class AddressesPageObject extends BasePage{
 		return getElementText(driver, AddressesPageUI.EMAIL_USER_UPDATED);
 	}
 
-
 	public String getCountryOfUser() {
 		waitForElementVisible(driver, AddressesPageUI.COUNTRY_USER_UPDATED);
 		return getElementText(driver, AddressesPageUI.COUNTRY_USER_UPDATED);
@@ -118,5 +116,4 @@ public class AddressesPageObject extends BasePage{
 		waitForElementVisible(driver, AddressesPageUI.FAX_NUMBER_USER_UPDATED);
 		return getElementText(driver, AddressesPageUI.FAX_NUMBER_USER_UPDATED);
 	}
-
 }

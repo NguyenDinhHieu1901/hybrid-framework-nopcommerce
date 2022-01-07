@@ -1,15 +1,15 @@
-package pageObjects.nopCommerce;
+package pageObjects.nopCommerce.user;
 
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
-import pageUIs.nopCommerce.MyProductReviewsPageUI;
+import pageUIs.nopCommerce.user.MyProductReviewsPageUI;
 
-public class MyProductReviewsPageObject extends BasePage {
+public class UserMyProductReviewsPageObject extends BasePage {
 	
 	private WebDriver driver;
 	
-	public MyProductReviewsPageObject(WebDriver driver) {
+	public UserMyProductReviewsPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
 
