@@ -1,5 +1,7 @@
 package pageObjects.nopCommerce.user;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
@@ -55,5 +57,18 @@ public class UserSearchPageObject extends BasePage {
 	public void selectManufacturerInDefaultDropdown(String valueText) {
 		waitForElementVisible(driver, UserSearchPageUI.SELECT_MANUFACTURER_DEFAULT_DROPDOWN);
 		selectItemInDefaultDropdown(driver, UserSearchPageUI.SELECT_MANUFACTURER_DEFAULT_DROPDOWN, valueText);
+	}
+
+	public boolean isProductNameFound(String productSearch) {
+		waitForElementVisible(driver, UserSearchPageUI.PRODUCT_TITLE);
+		List<String> allProducts = getAllElementText(driver, UserSearchPageUI.PRODUCT_TITLE);
+		boolean flag = false;
+		for (String product : allProducts) {
+			System.out.println("Product: " + product);
+			if (product.contains(productSearch)) {
+				flag = true;
+			}
+		}
+		return flag;
 	}
 }

@@ -1,5 +1,6 @@
 package commons;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -199,6 +200,15 @@ public class BasePage {
 
 	protected String getElementText(WebDriver driver, String locatorType) {
 		return getWebElement(driver, locatorType).getText();
+	}
+	
+	protected List<String> getAllElementText(WebDriver driver, String locatorType) {
+		List<WebElement> allElement = getListWebElement(driver, locatorType);
+		List<String> allElementText = new ArrayList<String>();
+		for (WebElement element : allElement) {
+			allElementText.add(element.getText());
+		}
+		return allElementText;
 	}
 
 	protected String getElementText(WebDriver driver, String locatorType, String... dynamicValues) {
