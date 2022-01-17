@@ -6,15 +6,15 @@ import pageObjects.nopCommerce.admin.AdminDashboardPageObject;
 import pageObjects.nopCommerce.admin.AdminLoginPageObject;
 
 public class PageGeneratorManager {
-	
+
 	public static UserHomePageObject getUserHomePage(WebDriver driver) {
 		return new UserHomePageObject(driver);
 	}
-	
+
 	public static UserRegisterPageObject getUserRegisterPage(WebDriver driver) {
 		return new UserRegisterPageObject(driver);
 	}
-	
+
 	public static UserLoginPageObject getUserLoginPage(WebDriver driver) {
 		return new UserLoginPageObject(driver);
 	}
@@ -30,19 +30,19 @@ public class PageGeneratorManager {
 	public static UserRewardPointPageObject getUserRewardPointPage(WebDriver driver) {
 		return new UserRewardPointPageObject(driver);
 	}
-	
+
 	public static UserMyProductReviewsPageObject getUserMyProductReviewsPage(WebDriver driver) {
 		return new UserMyProductReviewsPageObject(driver);
 	}
-	
+
 	public static UserChangePasswordPageObject getUserChangePasswordPage(WebDriver driver) {
 		return new UserChangePasswordPageObject(driver);
 	}
-	
+
 	public static AdminLoginPageObject getAdminLoginPage(WebDriver driver) {
 		return new AdminLoginPageObject(driver);
 	}
-	
+
 	public static AdminDashboardPageObject getAdminDashboardPage(WebDriver driver) {
 		return new AdminDashboardPageObject(driver);
 	}
@@ -50,8 +50,12 @@ public class PageGeneratorManager {
 	public static UserDesktopsPageObject getUserDesktopsPage(WebDriver driver) {
 		return new UserDesktopsPageObject(driver);
 	}
-	
+
 	public static UserSearchPageObject getUserSearchPage(WebDriver driver) {
 		return new UserSearchPageObject(driver);
+	}
+
+	public static UserNotebooksPageObject getUserNotebooksPage(WebDriver driver) {
+		return new UserNotebooksPageObject(driver);
 	}
 }
