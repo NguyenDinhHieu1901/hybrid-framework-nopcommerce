@@ -7,6 +7,7 @@ import java.util.Set;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -132,7 +133,7 @@ public class BasePage {
 		driver.switchTo().window(parentID);
 	}
 
-	protected void sleepInSecond(long second) {
+	public void sleepInSecond(long second) {
 		try {
 			Thread.sleep(second * 1000);
 		} catch (InterruptedException e) {
@@ -359,6 +360,16 @@ public class BasePage {
 		action.moveToElement(getWebElement(driver, getDynamicLocator(locatorType, dynamicValues))).perform();
 	}
 
+	protected void pressKeyToElement(WebDriver driver, String locatorType, Keys key) {
+		Actions action = new Actions(driver);
+		action.sendKeys(getWebElement(driver, locatorType), key).perform();
+	}
+
+	protected void pressKeyToElement(WebDriver driver, String locatorType, Keys key, String... dynamicValues) {
+		Actions action = new Actions(driver);
+		action.sendKeys(getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)), key).perform();
+	}
+
 	protected void scrollToBottomPage(WebDriver driver) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 		jsExecutor.executeScript("window.scrollBy(0, document.body.scrollHeight);");
@@ -559,5 +570,5 @@ public class BasePage {
 		return PageGeneratorManager.getAdminLoginPage(driver);
 	}
 
-	private long explicitLongTime = 30;
+	private long explicitLongTime = GlobalConstants.LONG_TIMEOUT;
 }
