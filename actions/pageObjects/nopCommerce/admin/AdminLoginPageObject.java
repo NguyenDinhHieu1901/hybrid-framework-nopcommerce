@@ -3,7 +3,6 @@ package pageObjects.nopCommerce.admin;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
-import pageObjects.nopCommerce.user.PageGeneratorManager;
 import pageUIs.nopCommerce.admin.AdminLoginPageUI;
 
 public class AdminLoginPageObject extends BasePage {
@@ -13,12 +12,12 @@ public class AdminLoginPageObject extends BasePage {
 		this.driver = driver;
 	}
 	
-	public void inputToEmailTextbox(String emailAddress) {
+	public void enterToEmailTextbox(String emailAddress) {
 		waitForElementVisible(driver, AdminLoginPageUI.ADMIN_EMAIL_TEXTBOX);
 		sendkeyToElement(driver, AdminLoginPageUI.ADMIN_EMAIL_TEXTBOX, emailAddress);
 	}
 	
-	public void inputToPasswordTextbox(String password) {
+	public void enterToPasswordTextbox(String password) {
 		waitForElementVisible(driver, AdminLoginPageUI.ADMIN_PASSWORD_TEXTBOX);
 		sendkeyToElement(driver, AdminLoginPageUI.ADMIN_PASSWORD_TEXTBOX, password);
 	}
@@ -26,13 +25,12 @@ public class AdminLoginPageObject extends BasePage {
 	public AdminDashboardPageObject clickToLoginButton() {
 		waitForClickable(driver, AdminLoginPageUI.LOGIN_BUTTON);
 		clickToElement(driver, AdminLoginPageUI.LOGIN_BUTTON);
-		return PageGeneratorManager.getAdminDashboardPage(driver);
+		return AdminPageGeneratorManager.getDashboardPage(driver);
 	}
 
 	public AdminDashboardPageObject loginAsAdmin(String adminEmailAddress, String adminPassword) {
-		inputToEmailTextbox(adminEmailAddress);
-		inputToPasswordTextbox(adminPassword);
+		enterToEmailTextbox(adminEmailAddress);
+		enterToPasswordTextbox(adminPassword);
 		return clickToLoginButton();
 	}
-
 }

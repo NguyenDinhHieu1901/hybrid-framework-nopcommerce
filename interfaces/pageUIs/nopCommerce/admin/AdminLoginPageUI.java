@@ -1,7 +1,7 @@
 package pageUIs.nopCommerce.admin;
 
 public class AdminLoginPageUI {
-	public static final String ADMIN_EMAIL_TEXTBOX = "//input[@id='Email']";
-	public static final String ADMIN_PASSWORD_TEXTBOX = "//input[@id='Password']";
-	public static final String LOGIN_BUTTON = "//button[text()='Log in']";
+	public static final String ADMIN_EMAIL_TEXTBOX = "xpath=//input[@id='Email']";
+	public static final String ADMIN_PASSWORD_TEXTBOX = "xpath=//input[@id='Password']";
+	public static final String LOGIN_BUTTON = "xpath=//button[text()='Log in']";
 }

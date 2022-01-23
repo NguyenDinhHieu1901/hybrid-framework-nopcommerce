@@ -1,5 +1,6 @@
 package commons;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -24,6 +25,7 @@ import pageObjects.nopCommerce.admin.AdminLoginPageObject;
 import pageObjects.nopCommerce.user.PageGeneratorManager;
 import pageObjects.nopCommerce.user.UserRewardPointPageObject;
 import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageUIs.nopCommerce.admin.AdminBasePageUI;
 import pageUIs.nopCommerce.user.BasePageUI;
 
 /**
@@ -274,6 +276,10 @@ public class BasePage {
 		return getWebElement(driver, locatorType).getAttribute(textValue);
 	}
 
+	protected String getElementAttribute(WebDriver driver, String locatorType, String textValue, String... dynamicValues) {
+		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).getAttribute(textValue);
+	}
+
 	protected String getElementCssValue(WebDriver driver, String locatorType, String propertyName) {
 		return getWebElement(driver, locatorType).getCssValue(propertyName);
 	}
@@ -391,12 +397,12 @@ public class BasePage {
 
 	protected void scrollToElement(WebDriver driver, String locatorType) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].scrollIntoview(true);", getWebElement(driver, locatorType));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, locatorType));
 	}
 
 	protected void scrollToElement(WebDriver driver, String locatorType, String... dynamicValues) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].scrollIntoview(true);", getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(false);", getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)));
 	}
 
 	protected void removeAttributeOfElement(WebDriver driver, String locatorType, String expectedAttribute) {
@@ -498,6 +504,22 @@ public class BasePage {
 		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(getDynamicLocator(locatorType, dynamicValues))));
 	}
+	
+	public void uploadFileByFileName(WebDriver driver, String locatorType, String fileNames) {
+		String rootUploadFiles = GlobalConstants.UPLOAD_FILE_FOLDER;
+		fileNames = rootUploadFiles + File.separator + fileNames + File.separator;
+		getWebElement(driver, locatorType).sendKeys(fileNames);
+	}
+
+	public void uploadMultipleFileByFileName(WebDriver driver, String locatorType, String... fileNames) {
+		String rootUploadFiles = GlobalConstants.UPLOAD_FILE_FOLDER;
+		String fullFileNames = "";
+		for (String file : fileNames) {
+			fullFileNames += rootUploadFiles + File.separator + file + File.separator + "\n";
+		}
+		fullFileNames.trim();
+		getWebElement(driver, locatorType).sendKeys(fullFileNames);
+	}
 
 	public BasePage openPagesAtMyAccountByName(WebDriver driver, String pageName) {
 		waitForClickable(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation", pageName);
@@ -568,6 +590,14 @@ public class BasePage {
 		waitForElementVisible(driver, BasePageUI.LOGOUT_LINK_AT_ADMIN);
 		clickToElement(driver, BasePageUI.LOGOUT_LINK_AT_ADMIN);
 		return PageGeneratorManager.getAdminLoginPage(driver);
+	}
+
+	public void clickToSubmenuProductByTagName(WebDriver driver, String menuName, String submenuName) {
+		waitForElementInvisible(driver, AdminBasePageUI.AJAX_LOADING);
+		waitForClickable(driver, AdminBasePageUI.NAV_SIDEBAR_MENU, menuName);
+		clickToElement(driver, AdminBasePageUI.NAV_SIDEBAR_MENU, menuName);
+		waitForClickable(driver, AdminBasePageUI.NAV_SIDEBAR_SUB_MENU, submenuName);
+		clickToElement(driver, AdminBasePageUI.NAV_SIDEBAR_SUB_MENU, submenuName);
 	}
 
 	private long explicitLongTime = GlobalConstants.LONG_TIMEOUT;
