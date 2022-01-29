@@ -2,8 +2,10 @@ package commons;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -18,13 +20,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import pageObjects.nopCommerce.user.UserAddressesPageObject;
-import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
-import pageObjects.nopCommerce.user.UserMyProductReviewsPageObject;
 import pageObjects.nopCommerce.admin.AdminLoginPageObject;
 import pageObjects.nopCommerce.user.PageGeneratorManager;
-import pageObjects.nopCommerce.user.UserRewardPointPageObject;
+import pageObjects.nopCommerce.user.UserAddressesPageObject;
+import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
 import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserMyProductReviewsPageObject;
+import pageObjects.nopCommerce.user.UserRewardPointPageObject;
 import pageUIs.nopCommerce.admin.AdminBasePageUI;
 import pageUIs.nopCommerce.user.BasePageUI;
 
@@ -74,7 +76,7 @@ public class BasePage {
 	}
 
 	public Alert waitForAlertPresence(WebDriver driver) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		return explicitWait.until(ExpectedConditions.alertIsPresent());
 	}
 
@@ -249,7 +251,7 @@ public class BasePage {
 	}
 
 	protected void selectItemInCustomDropdown(WebDriver driver, String xpathParentLocator, String xpathChildLocator, String expectedItem) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(xpathParentLocator))).click();
@@ -348,6 +350,39 @@ public class BasePage {
 		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).isSelected();
 	}
 
+	protected boolean isElementUndisplayedWithTryCatch(WebDriver driver, String locatorType) {
+		try {
+			return getWebElement(driver, locatorType).isDisplayed();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+
+	private void overrideTimeout(WebDriver driver, long timeout) {
+		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
+	}
+
+	protected boolean isElementUndisplayed(WebDriver driver, String locatorType) {
+		System.out.println("Start time = " + new Date().toString());
+		overrideTimeout(driver, shortTimeout);
+		List<WebElement> elements = getListWebElement(driver, locatorType);
+		overrideTimeout(driver, longTimeout);
+		if (elements.size() == 0) {
+			System.out.println("Element is not invisible and not in DOM!");
+			System.out.println("End time = " + new Date().toString());
+			return true;
+		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+			System.out.println("Element is not invisible and in DOM!");
+			System.out.println("End time = " + new Date().toString());
+			return true;
+		} else {
+			System.out.println("Element is visible!");
+			System.out.println("End time = " + new Date().toString());
+			return false;
+		}
+	}
+
 	protected void switchToFrameIframe(WebDriver driver, String locatorType) {
 		driver.switchTo().frame(getWebElement(driver, locatorType));
 	}
@@ -427,7 +462,7 @@ public class BasePage {
 	}
 
 	protected boolean waitToJQueryAndJSLoadedSuccess(WebDriver driver) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 
 		ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
@@ -456,55 +491,55 @@ public class BasePage {
 	}
 
 	protected void waitForElementVisible(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(locatorType)));
 	}
 
 	protected void waitForElementVisible(WebDriver driver, String locatorType, String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByLocator(getDynamicLocator(locatorType, dynamicValues))));
 	}
 
 	protected void waitForAllElementVisible(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(locatorType)));
 	}
 
 	protected void waitForAllElementVisible(WebDriver driver, String locatorType, String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(getDynamicLocator(locatorType, dynamicValues))));
 	}
 
 	protected void waitForElementInvisible(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(locatorType)));
 	}
 
 	protected void waitForElementInvisible(WebDriver driver, String locatorType, String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByLocator(getDynamicLocator(locatorType, dynamicValues))));
 	}
 
 	protected void waitForAllElementInvisible(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, locatorType)));
 	}
 
 	protected void waitForAllElementInvisible(WebDriver driver, String locatorType, String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(getListWebElement(driver, getDynamicLocator(locatorType, dynamicValues))));
 	}
 
 	protected void waitForClickable(WebDriver driver, String locatorType) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(locatorType)));
 	}
 
 	protected void waitForClickable(WebDriver driver, String locatorType, String... dynamicValues) {
-		WebDriverWait explicitWait = new WebDriverWait(driver, explicitLongTime);
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByLocator(getDynamicLocator(locatorType, dynamicValues))));
 	}
-	
+
 	public void uploadFileByFileName(WebDriver driver, String locatorType, String fileNames) {
 		String rootUploadFiles = GlobalConstants.UPLOAD_FILE_FOLDER;
 		fileNames = rootUploadFiles + File.separator + fileNames + File.separator;
@@ -600,5 +635,6 @@ public class BasePage {
 		clickToElement(driver, AdminBasePageUI.NAV_SIDEBAR_SUB_MENU, submenuName);
 	}
 
-	private long explicitLongTime = GlobalConstants.LONG_TIMEOUT;
+	private long longTimeout = GlobalConstants.LONG_TIMEOUT;
+	private long shortTimeout = GlobalConstants.SHORT_TIMEOUT;
 }

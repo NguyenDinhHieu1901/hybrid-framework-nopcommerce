@@ -82,7 +82,7 @@ public class BaseTest {
 		return driver;
 	}
 
-	protected WebDriver getBrowserDriver(String browserName, String url) {
+	protected WebDriver getBrowserDriver(String browserName, String environmentName) {
 		if (browserName.equals("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
@@ -126,11 +126,39 @@ public class BaseTest {
 
 		driver.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		getEnvironmentBrowser("dev", url);
+		getEnvironmentBrowser(environmentName, GlobalConstants.ADMIN_DEV_URL);
+		return driver;
+	}
+	
+	protected WebDriver getBrowserDriverWithUrl(String browserName, String url) {
+		switch (browserName) {
+		case "firefox":
+			WebDriverManager.firefoxdriver().setup();
+			driver = new FirefoxDriver();
+			break;
+		case "chrome":
+			WebDriverManager.chromedriver().setup();
+			driver = new ChromeDriver();
+			break;
+		case "edge":
+			WebDriverManager.edgedriver().setup();
+			driver = new EdgeDriver();
+			break;
+		case "ie":
+			WebDriverManager.iedriver().arch32().setup();;
+			driver = new InternetExplorerDriver();
+			break;
+
+		default:
+			throw new BrowserNotSupport(browserName);
+		}
+		driver.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.get(url);
 		return driver;
 	}
 
-	protected void getEnvironmentBrowser(String environmentName, String url) {
+	private void getEnvironmentBrowser(String environmentName, String url) {
 		switch (environmentName) {
 		case "dev":
 			driver.get(url);
