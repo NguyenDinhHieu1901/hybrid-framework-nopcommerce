@@ -10,14 +10,14 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import pageObjects.HomePageObject;
-import pageObjects.RegisterPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
 public class Level_04_Multiple_Browser_01_Register extends BaseTest {
 	private WebDriver driver;
 	private String emailAddress, password, firstName, lastName;
-	private HomePageObject homePageObject;
-	private RegisterPageObject registerPageObject;
+	private UserHomePageObject homePageObject;
+	private UserRegisterPageObject registerPageObject;
 	
 	@Parameters("browser")
 	@BeforeClass
@@ -26,11 +26,11 @@ public class Level_04_Multiple_Browser_01_Register extends BaseTest {
 		System.out.println("Multiple Browser - Run on " + browserName);
 		driver = getBrowserDriver(browserName);
 		
-		homePageObject = new HomePageObject(driver);
+		homePageObject = new UserHomePageObject(driver);
 	
 		firstName = "nguyen";
 		lastName = "test";
-		emailAddress = firstName + lastName + getEmailFaker() + "@mail.net";
+		emailAddress = firstName + lastName + generatorNumberRandom() + "@mail.net";
 		password = "123456";
 	}
 
@@ -41,7 +41,7 @@ public class Level_04_Multiple_Browser_01_Register extends BaseTest {
 		homePageObject.clickToRegisterLink();
 		
 		System.out.println("Register_01 - step 2: Click to register button");
-		registerPageObject = new RegisterPageObject(driver);
+		registerPageObject = new UserRegisterPageObject(driver);
 		registerPageObject.clickToRegisterButton();
 		
 		System.out.println("Register_01 - step 3: Verify error message displayed at required fields");
@@ -59,7 +59,7 @@ public class Level_04_Multiple_Browser_01_Register extends BaseTest {
 		homePageObject.clickToRegisterLink();
 		
 		System.out.println("Register_02 - step 2: Input to all required fields");
-		registerPageObject = new RegisterPageObject(driver);
+		registerPageObject = new UserRegisterPageObject(driver);
 		registerPageObject.inputToFirstNameTextbox(firstName);
 		registerPageObject.inputToLastNameTextbox(lastName);
 		registerPageObject.inputToEmailTextbox("123@##12");
@@ -80,7 +80,7 @@ public class Level_04_Multiple_Browser_01_Register extends BaseTest {
 		homePageObject.clickToRegisterLink();
 		
 		System.out.println("Register_03 - step 2: Input to all required fields");
-		registerPageObject = new RegisterPageObject(driver);
+		registerPageObject = new UserRegisterPageObject(driver);
 		registerPageObject.inputToFirstNameTextbox(firstName);
 		registerPageObject.inputToLastNameTextbox(lastName);
 		registerPageObject.inputToEmailTextbox(emailAddress);
@@ -95,17 +95,18 @@ public class Level_04_Multiple_Browser_01_Register extends BaseTest {
 
 
 		System.out.println("Register_03 - step 5: Click to logout link");
-		registerPageObject.clickToLogoutLink();
+		registerPageObject.clickToLogoutLinkAtUser(driver);
 	}
 
 	@Test
 	public void Register_04_Existing_Email() {
 
 		System.out.println("Register_04 - step 1: Click to register link");
+		homePageObject = new UserHomePageObject(driver);
 		homePageObject.clickToRegisterLink();
 		
 		System.out.println("Register_04 - step 2: Input to all required fields");
-		registerPageObject = new RegisterPageObject(driver);
+		registerPageObject = new UserRegisterPageObject(driver);
 		registerPageObject.inputToFirstNameTextbox(firstName);
 		registerPageObject.inputToLastNameTextbox(lastName);
 		registerPageObject.inputToEmailTextbox(emailAddress);
@@ -126,7 +127,7 @@ public class Level_04_Multiple_Browser_01_Register extends BaseTest {
 		homePageObject.clickToRegisterLink();
 		
 		System.out.println("Register_05 - step 2: Input to all required fields");
-		registerPageObject = new RegisterPageObject(driver);
+		registerPageObject = new UserRegisterPageObject(driver);
 		registerPageObject.inputToFirstNameTextbox(firstName);
 		registerPageObject.inputToLastNameTextbox(lastName);
 		registerPageObject.inputToEmailTextbox(emailAddress);
@@ -147,7 +148,7 @@ public class Level_04_Multiple_Browser_01_Register extends BaseTest {
 		homePageObject.clickToRegisterLink();
 		
 		System.out.println("Register_06 - step 2: Input to all required fields");
-		registerPageObject = new RegisterPageObject(driver);
+		registerPageObject = new UserRegisterPageObject(driver);
 		registerPageObject.inputToFirstNameTextbox(firstName);
 		registerPageObject.inputToLastNameTextbox(lastName);
 		registerPageObject.inputToEmailTextbox(emailAddress);
@@ -166,7 +167,7 @@ public class Level_04_Multiple_Browser_01_Register extends BaseTest {
 		driver.quit();
 	}
 
-	public int getEmailFaker() {
+	public int generatorNumberRandom() {
 		Random rand = new Random();
 		return rand.nextInt(9999);
 	}

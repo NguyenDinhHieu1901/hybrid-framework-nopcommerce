@@ -27,7 +27,7 @@ public class Level_09_Dynamic_Locator extends BaseTest {
 
 		firstName = "nguyen";
 		lastName = "test";
-		emailAddress = firstName + lastName + getEmailFaker() + "@mail.net";
+		emailAddress = firstName + lastName + generatorNumberRandom() + "@mail.net";
 		password = "123456";
 	}
 

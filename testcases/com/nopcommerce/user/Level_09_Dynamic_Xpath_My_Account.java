@@ -179,6 +179,7 @@ public class Level_09_Dynamic_Xpath_My_Account extends BaseTest {
 		desktopsPageObject.clickToSubmitReviewButton();
 
 		System.out.println("My_Account_04 - step 7: click to my account link");
+		homePageObject = PageGeneratorManager.getUserHomePage(driver);
 		customerInfoPageObject = homePageObject.clickToMyAccountLink();
 
 		System.out.println("My_Account_04 - step 9: click to my product reviews link");
@@ -193,6 +194,7 @@ public class Level_09_Dynamic_Xpath_My_Account extends BaseTest {
 	public void afterClass() {
 		driver.quit();
 	}
+
 	private WebDriver driver;
 	private String emailAddress, password, firstName, lastName;
 	private String emailAddressUpdate, firstNameUpdate, lastNameUpdate, companyNameUpdate, dobDayUpdate, dobMonthUpdate, dobYearUpdate;

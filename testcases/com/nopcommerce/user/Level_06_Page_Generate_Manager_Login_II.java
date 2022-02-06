@@ -8,16 +8,16 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import pageObjects.HomePageObject;
-import pageObjects.LoginPageObject;
-import pageObjects.RegisterPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserLoginPageObject;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
-public class Level_06_Generate_Page_Manager_Login_II extends BaseTest {
+public class Level_06_Page_Generate_Manager_Login_II extends BaseTest {
 	private WebDriver driver;
 	private String emailExisting, emailInvalid, emailNotFound, password, firstName, lastName;
-	private HomePageObject homePageObject;
-	private RegisterPageObject registerPageObject;
-	private LoginPageObject loginPageObject;
+	private UserHomePageObject homePageObject;
+	private UserRegisterPageObject registerPageObject;
+	private UserLoginPageObject loginPageObject;
 
 	@Parameters("browser")
 	@BeforeClass
@@ -26,12 +26,12 @@ public class Level_06_Generate_Page_Manager_Login_II extends BaseTest {
 		driver = getBrowserDriver(browserName);
 
 		// We can't put initial HonePageObject into getBrowserDriver() method due to each different environments, their behaviours will be differ
-		homePageObject = new HomePageObject(driver);
+		homePageObject = new UserHomePageObject(driver);
 
 		firstName = "nguyen";
 		lastName = "test";
-		emailExisting = firstName + lastName + getEmailFaker() + "@mail.net";
-		emailNotFound = firstName + lastName + getEmailFaker() + "@mail.com";
+		emailExisting = firstName + lastName + generatorNumberRandom() + "@mail.net";
+		emailNotFound = firstName + lastName + generatorNumberRandom() + "@mail.com";
 		emailInvalid = "123@gmail.com#@.vn";
 		password = "123456";
 
@@ -55,7 +55,7 @@ public class Level_06_Generate_Page_Manager_Login_II extends BaseTest {
 		Assert.assertEquals(registerPageObject.getRegisterSuccessMessage(), "Your registration completed");
 
 		System.out.println("Pre-condition - step 5: Click to logout link");
-		homePageObject = registerPageObject.clickToLogoutLink();
+		homePageObject = registerPageObject.clickToLogoutLinkAtUser(driver);
 	}
 
 	@Test

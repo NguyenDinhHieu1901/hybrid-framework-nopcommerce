@@ -326,8 +326,18 @@ public class BasePage {
 		}
 	}
 
-	protected boolean isElementDisplay(WebDriver driver, String locatorType) {
-		return getWebElement(driver, locatorType).isDisplayed();
+	// protected boolean isElementDisplay(WebDriver driver, String locatorType) {
+	// return getWebElement(driver, locatorType).isDisplayed();
+	// }
+
+	protected boolean isElementDisplayed(WebDriver driver, String locatorType) {
+		try {
+			WebElement element = driver.findElement(By.xpath(locatorType));
+			return element.isDisplayed();
+		} catch (Exception e) {
+			System.out.println("Exception = " + e.getMessage());
+			return false;
+		}
 	}
 
 	protected boolean isElementDisplay(WebDriver driver, String locatorType, String... dynamicValues) {

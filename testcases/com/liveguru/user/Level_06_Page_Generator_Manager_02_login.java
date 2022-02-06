@@ -24,9 +24,9 @@ public class Level_06_Page_Generator_Manager_02_login extends BaseTest {
 
 		firstName = "El";
 		lastName = "Nino";
-		emailAddress = firstName + lastName + getEmailFaker() + "@gmail.net";
+		emailAddress = firstName + lastName + generatorNumberRandom() + "@gmail.net";
 		password = "123456";
-		emailNotFound = firstName + lastName + getEmailFaker() + "@gmail.com";
+		emailNotFound = firstName + lastName + generatorNumberRandom() + "@gmail.com";
 
 		System.out.println("Pre-condition - step 1: Opening app");
 		driver = getBrowserDriver(browserName);

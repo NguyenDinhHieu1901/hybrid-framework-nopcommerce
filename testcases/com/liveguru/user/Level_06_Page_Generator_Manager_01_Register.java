@@ -22,7 +22,7 @@ public class Level_06_Page_Generator_Manager_01_Register extends BaseTest {
 
 		firstName = "El";
 		lastName = "Nino";
-		emailAddress = firstName + lastName + getEmailFaker() + "@gmail.net";
+		emailAddress = firstName + lastName + generatorNumberRandom() + "@gmail.net";
 		password = "123456";
 
 		System.out.println("Pre-condition - step 1: Opening app");

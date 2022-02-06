@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Admin NopCommerce">
+
+	<parameter name="environment" value="testing" />
+	<test name="Run on Firefox">
+		<parameter name="browser" value="firefox" />
+		<classes>
+			<class name="com.nopcommerce.admin.Level_11_Upload_File" />
+		</classes>
+	</test>
+
+</suite> 

@@ -27,7 +27,7 @@ public class Level_08_Switch_Role extends BaseTest {
 
 		firstName = "nguyen";
 		lastName = "test";
-		userEmailAddress = firstName + lastName + getEmailFaker() + "@mail.net";
+		userEmailAddress = firstName + lastName + generatorNumberRandom() + "@mail.net";
 		userPassword = "123456";
 		adminEmailAddress = "admin@yourstore.com";
 		adminPassword = "admin";
@@ -59,7 +59,7 @@ public class Level_08_Switch_Role extends BaseTest {
 
 	@Test
 	public void Role_02_Admin_To_User() {
-		adminLoginPageObject.openPageUrl(driver, GlobalConstants.USER_NOPCOMMMERCE_URL);
+		adminLoginPageObject.openPageUrl(driver, GlobalConstants.PORTAL_NOPCOMMMERCE_URL);
 		userHomePageObject = PageGeneratorManager.getUserHomePage(driver);
 		userLoginPageObject = userHomePageObject.clickToLoginLink();
 		userHomePageObject = userLoginPageObject.loginAsUser(userEmailAddress, userPassword);

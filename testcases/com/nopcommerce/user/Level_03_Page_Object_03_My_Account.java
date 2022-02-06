@@ -254,6 +254,7 @@ public class Level_03_Page_Object_03_My_Account {
 		desktopsPageObject.clickToSubmitReviewButton();
 
 		System.out.println("My_Account_04 - step 8: click to my account link");
+		homePageObject = new UserHomePageObject(driver);
 		homePageObject.clickToMyAccountLink();
 
 		System.out.println("My_Account_04 - step 9: click to my product reviews link");

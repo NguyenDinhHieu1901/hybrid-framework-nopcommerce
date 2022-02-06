@@ -8,14 +8,14 @@ import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import commons.BaseTest;
-import pageObjects.nopCommerce.AddressesPageObject;
-import pageObjects.nopCommerce.CustomerInfoPageObject;
-import pageObjects.nopCommerce.HomePageObject;
-import pageObjects.nopCommerce.LoginPageObject;
-import pageObjects.nopCommerce.MyProductReviewsPageObject;
-import pageObjects.nopCommerce.PageGeneratorManager;
-import pageObjects.nopCommerce.RegisterPageObject;
-import pageObjects.nopCommerce.RewardPointPageObject;
+import pageObjects.nopCommerce.user.UserAddressesPageObject;
+import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
+import pageObjects.nopCommerce.user.UserHomePageObject;
+import pageObjects.nopCommerce.user.UserLoginPageObject;
+import pageObjects.nopCommerce.user.UserMyProductReviewsPageObject;
+import pageObjects.nopCommerce.user.PageGeneratorManager;
+import pageObjects.nopCommerce.user.UserRegisterPageObject;
+import pageObjects.nopCommerce.user.UserRewardPointPageObject;
 
 public class Level_07_Switch_Page extends BaseTest {
 
@@ -24,11 +24,11 @@ public class Level_07_Switch_Page extends BaseTest {
 	public void beforeClass(String browserName) {
 		driver = getBrowserDriver(browserName);
 		// homePageObject = new HomePageObject(driver);
-		homePageObject = PageGeneratorManager.getHomePage(driver);
+		homePageObject = PageGeneratorManager.getUserHomePage(driver);
 
 		firstName = "nguyen";
 		lastName = "test";
-		emailAddress = firstName + lastName + getEmailFaker() + "@mail.net";
+		emailAddress = firstName + lastName + generatorNumberRandom() + "@mail.net";
 		password = "123456";
 	}
 
@@ -42,7 +42,7 @@ public class Level_07_Switch_Page extends BaseTest {
 		registerPageObject.inputToConfirmPasswordTextbox(password);
 		registerPageObject.clickToRegisterButton();
 		Assert.assertEquals(registerPageObject.getRegisterSuccessMessage(), "Your registration completed");
-		homePageObject = registerPageObject.clickToLogoutLink();
+		homePageObject = registerPageObject.clickToLogoutLinkAtUser(driver);
 	}
 
 	@Test
@@ -62,7 +62,6 @@ public class Level_07_Switch_Page extends BaseTest {
 
 	@Test
 	public void User_04_Switch_Page() {
-		
 		// Customer Info Page --> Addresses Page
 		addressesPageObject = customerInfoPageObject.openAddressesPage(driver);
 		
@@ -89,11 +88,11 @@ public class Level_07_Switch_Page extends BaseTest {
 
 	private WebDriver driver;
 	private String emailAddress, password, firstName, lastName;
-	private HomePageObject homePageObject;
-	private RegisterPageObject registerPageObject;
-	private LoginPageObject loginPageObject;
-	private CustomerInfoPageObject customerInfoPageObject;
-	private AddressesPageObject addressesPageObject;
-	private RewardPointPageObject rewardPointPageObject;
-	private MyProductReviewsPageObject myProductReviewsPageObject;
+	private UserHomePageObject homePageObject;
+	private UserRegisterPageObject registerPageObject;
+	private UserLoginPageObject loginPageObject;
+	private UserCustomerInfoPageObject customerInfoPageObject;
+	private UserAddressesPageObject addressesPageObject;
+	private UserRewardPointPageObject rewardPointPageObject;
+	private UserMyProductReviewsPageObject myProductReviewsPageObject;
 }

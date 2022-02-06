@@ -3,7 +3,7 @@ package pageObjects.nopCommerce.user;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
-import pageUIs.nopCommerce.user.MyProductReviewsPageUI;
+import pageUIs.nopCommerce.user.UserMyProductReviewsPageUI;
 
 public class UserMyProductReviewsPageObject extends BasePage {
 	
@@ -14,13 +14,13 @@ public class UserMyProductReviewsPageObject extends BasePage {
 	}
 
 	public String getTitleReviewText() {
-		waitForElementVisible(driver, MyProductReviewsPageUI.REVIEW_TITLE_TEXT);
-		return getElementText(driver, MyProductReviewsPageUI.REVIEW_TITLE_TEXT);
+		waitForElementVisible(driver, UserMyProductReviewsPageUI.REVIEW_TITLE_TEXT);
+		return getElementText(driver, UserMyProductReviewsPageUI.REVIEW_TITLE_TEXT);
 	}
 
 	public String getContentReviewText() {
-		waitForElementVisible(driver, MyProductReviewsPageUI.REVIEW_CONTENT_TEXT);
-		return getElementText(driver, MyProductReviewsPageUI.REVIEW_CONTENT_TEXT);
+		waitForElementVisible(driver, UserMyProductReviewsPageUI.REVIEW_CONTENT_TEXT);
+		return getElementText(driver, UserMyProductReviewsPageUI.REVIEW_CONTENT_TEXT);
 	}
 
 }

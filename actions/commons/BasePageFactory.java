@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePageFactory {
 	
-	private long explicitLongTime = 30;
+	private long explicitLongTime = 10;
 	
 	protected void openPageUrl(WebDriver driver, String pageUrl) {
 		driver.get(pageUrl);

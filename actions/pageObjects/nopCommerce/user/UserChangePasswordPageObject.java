@@ -3,7 +3,7 @@ package pageObjects.nopCommerce.user;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
-import pageUIs.nopCommerce.user.ChangePasswordPageUI;
+import pageUIs.nopCommerce.user.UserChangePasswordPageUI;
 
 public class UserChangePasswordPageObject extends BasePage{
 	
@@ -14,33 +14,33 @@ public class UserChangePasswordPageObject extends BasePage{
 	}
 
 	public void inputToOldPasswordTextbox(String password) {
-		waitForElementVisible(driver, ChangePasswordPageUI.OLD_PASSWORD_TEXTBOX);
-		sendkeyToElement(driver, ChangePasswordPageUI.OLD_PASSWORD_TEXTBOX, password);
+		waitForElementVisible(driver, UserChangePasswordPageUI.OLD_PASSWORD_TEXTBOX);
+		sendkeyToElement(driver, UserChangePasswordPageUI.OLD_PASSWORD_TEXTBOX, password);
 	}
 
 	public void inputToNewPasswordTextbox(String newPassword) {
-		waitForElementVisible(driver, ChangePasswordPageUI.NEW_PASSWORD_TEXTBOX);
-		sendkeyToElement(driver, ChangePasswordPageUI.NEW_PASSWORD_TEXTBOX, newPassword);
+		waitForElementVisible(driver, UserChangePasswordPageUI.NEW_PASSWORD_TEXTBOX);
+		sendkeyToElement(driver, UserChangePasswordPageUI.NEW_PASSWORD_TEXTBOX, newPassword);
 	}
 
 	public void inputToConfirmNewPasswordTextbox(String newPassword) {
-		waitForElementVisible(driver, ChangePasswordPageUI.CONFIRM_NEW_PASSWORD_TEXTBOX);
-		sendkeyToElement(driver, ChangePasswordPageUI.CONFIRM_NEW_PASSWORD_TEXTBOX, newPassword);
+		waitForElementVisible(driver, UserChangePasswordPageUI.CONFIRM_NEW_PASSWORD_TEXTBOX);
+		sendkeyToElement(driver, UserChangePasswordPageUI.CONFIRM_NEW_PASSWORD_TEXTBOX, newPassword);
 	}
 
 	public void clickToChangePasswordButton() {
-		waitForClickable(driver, ChangePasswordPageUI.CHANGE_PASSWORD_BUTTON);
-		clickToElement(driver, ChangePasswordPageUI.CHANGE_PASSWORD_BUTTON);
+		waitForClickable(driver, UserChangePasswordPageUI.CHANGE_PASSWORD_BUTTON);
+		clickToElement(driver, UserChangePasswordPageUI.CHANGE_PASSWORD_BUTTON);
 	}
 
 	public String getChangePasswordSuccessMessage() {
-		waitForElementVisible(driver, ChangePasswordPageUI.CHANGE_PASSWORD_SUCCESS_MESSAGE);
-		return getElementText(driver, ChangePasswordPageUI.CHANGE_PASSWORD_SUCCESS_MESSAGE);
+		waitForElementVisible(driver, UserChangePasswordPageUI.CHANGE_PASSWORD_SUCCESS_MESSAGE);
+		return getElementText(driver, UserChangePasswordPageUI.CHANGE_PASSWORD_SUCCESS_MESSAGE);
 	}
 
 	public void clickToCloseChangePasswordSuccessMessage() {
-		waitForClickable(driver, ChangePasswordPageUI.CLOSE_CHANGE_PASSWORD_SUCCESS_MESSAGE);
-		clickToElement(driver, ChangePasswordPageUI.CLOSE_CHANGE_PASSWORD_SUCCESS_MESSAGE);
+		waitForClickable(driver, UserChangePasswordPageUI.CLOSE_CHANGE_PASSWORD_SUCCESS_MESSAGE);
+		clickToElement(driver, UserChangePasswordPageUI.CLOSE_CHANGE_PASSWORD_SUCCESS_MESSAGE);
 		sleepInSecond(1);
 	}
 
