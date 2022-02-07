@@ -45,14 +45,13 @@ public class Level_13_Assert_Verify extends BaseTest {
 
 		// Failed
 		System.out.println("Step 45 - Verify ...");
-		Assert.assertTrue(loginPage.isTryAgainButtonDisplayed());
+		Assert.assertTrue(loginPage.isTryAgainButtonUndisplayed());
 
 		// Pass
 		System.out.println("Step 70 - Verify ...");
 		Assert.assertTrue(loginPage.isLoginButtonDisplayed());
 	}
 
-	@Test
 	public void Register_02_Soft_Assert() {
 		System.out.println("Step 01 - Input to email textbox");
 		loginPage.inputToEmailTextbox("");
@@ -63,30 +62,67 @@ public class Level_13_Assert_Verify extends BaseTest {
 		System.out.println("Step 03 - Click to Login button");
 		loginPage.clickToLoginButton();
 
-		// Pass
+		// Passed
 		System.out.println("Step 05 - Verify error message displayed");
 		checkTrue(loginPage.isErrorMessagesDisplayedAtEmailTextbox());
-		
+
 		// Failed
 		System.out.println("Step 10 - Verify ...");
 		checkFalse(loginPage.isErrorMessagesUndisplayedAtEmailTextbox());
 
-		// Pass
+		// Passed
 		System.out.println("Step 30 - Verify ...");
-		checkEquals(loginPage.getErrorMessageAtEmailTextbox(), "The email address or mobile number you entered isn't connected to an account. ");
+		checkEquals(loginPage.getErrorMessageAtEmailTextbox(), "The email address or mobile number you entered isn't connected to an account. Find your account and log in.");
 
 		// Failed
 		System.out.println("Step 45 - Verify ...");
-		checkTrue(loginPage.isTryAgainButtonDisplayed());
+		checkFalse(loginPage.isTryAgainButtonUndisplayed());
 
-		// Pass
+		// Passed
 		System.out.println("Step 70 - Verify ...");
 		checkTrue(loginPage.isLoginButtonDisplayed());
+
+		// Failed
+		System.out.println("Step 80 - Verify ...");
+		checkEquals(loginPage.getErrorMessageAtEmailTextbox(), "The email address or mobile number you entered isn't connected to an account.");
+
+		soft.assertAll();
 	}
 
 	@Test
 	public void Register_03_Verify() {
+		System.out.println("Step 01 - Input to email textbox");
+		loginPage.inputToEmailTextbox("");
 
+		System.out.println("Step 02 - Input to password textbox");
+		loginPage.inputToPasswordTextbox("");
+
+		System.out.println("Step 03 - Click to Login button");
+		loginPage.clickToLoginButton();
+
+		// Passed
+		System.out.println("Step 05 - Verify error message displayed");
+		verifyTrue(loginPage.isErrorMessagesDisplayedAtEmailTextbox());
+
+		// Failed
+		System.out.println("Step 10 - Verify ...");
+		verifyTrue(loginPage.isErrorMessagesUndisplayedAtEmailTextbox());
+
+		// Passed
+		System.out.println("Step 30 - Verify ...");
+		verifyEquals(loginPage.getErrorMessageAtEmailTextbox(), "The email address or mobile number you entered isn't connected to an account. Find your account and log in.");
+
+		// Failed
+		System.out.println("Step 45 - Verify ...");
+		verifyTrue(loginPage.isTryAgainButtonUndisplayed());
+
+		// Passed
+		System.out.println("Step 70 - Verify ...");
+		verifyFalse(loginPage.isLoginButtonDisplayed());
+
+		// Failed
+		System.out.println("Step 80 - Verify ...");
+		verifyEquals(loginPage.getErrorMessageAtEmailTextbox(), "The email address or mobile number you entered isn't connected to an account.");
 	}
 
 	@AfterClass

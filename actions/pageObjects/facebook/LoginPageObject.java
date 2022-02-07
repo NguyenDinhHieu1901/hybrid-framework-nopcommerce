@@ -33,7 +33,6 @@ public class LoginPageObject extends BasePage {
 	}
 
 	public boolean isErrorMessagesUndisplayedAtEmailTextbox() {
-		waitForElementVisible(driver, LoginPageUI.EMAIL_ADDRESS_ERROR_MESSAGE);
 		return isElementUndisplayed(driver, LoginPageUI.EMAIL_ADDRESS_ERROR_MESSAGE);
 	}
 
@@ -42,8 +41,7 @@ public class LoginPageObject extends BasePage {
 		return getElementText(driver, LoginPageUI.EMAIL_ADDRESS_ERROR_MESSAGE);
 	}
 
-	public boolean isTryAgainButtonDisplayed() {
-		waitForElementVisible(driver, LoginPageUI.TRY_AGAIN_BUTTON);
+	public boolean isTryAgainButtonUndisplayed() {
 		return isElementUndisplayedWithTryCatch(driver, LoginPageUI.TRY_AGAIN_BUTTON);
 	}
 

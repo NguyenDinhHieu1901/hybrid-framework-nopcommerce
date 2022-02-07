@@ -3,6 +3,8 @@ package commons;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,6 +13,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.testng.Assert;
+import org.testng.Reporter;
 
 import exception.BrowserNotSupport;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -33,6 +37,15 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class BaseTest {
 
 	private WebDriver driver;
+	protected final Log log;
+
+	protected BaseTest() {
+		log = LogFactory.getLog(getClass());
+	}
+
+	private enum BrowserList {
+		FIREFOX, CHROME, EDGE, IE, SAFARI, COCCOC, BRAVE, OPERA
+	}
 
 	protected WebDriver getBrowserDriver(String browserName) {
 		if (browserName.equals("firefox")) {
@@ -129,23 +142,25 @@ public class BaseTest {
 		getEnvironmentBrowser(environmentName, GlobalConstants.ADMIN_DEV_URL);
 		return driver;
 	}
-	
+
 	protected WebDriver getBrowserDriverWithUrl(String browserName, String url) {
-		switch (browserName) {
-		case "firefox":
+		BrowserList browserList = BrowserList.valueOf(browserName.toUpperCase());
+
+		switch (browserList) {
+		case FIREFOX:
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
 			break;
-		case "chrome":
+		case CHROME:
 			WebDriverManager.chromedriver().setup();
 			driver = new ChromeDriver();
 			break;
-		case "edge":
+		case EDGE:
 			WebDriverManager.edgedriver().setup();
 			driver = new EdgeDriver();
 			break;
-		case "ie":
-			WebDriverManager.iedriver().arch32().setup();;
+		case IE:
+			WebDriverManager.iedriver().arch32().setup();
 			driver = new InternetExplorerDriver();
 			break;
 
@@ -174,5 +189,67 @@ public class BaseTest {
 	protected int generatorNumberRandom() {
 		Random rand = new Random();
 		return rand.nextInt(9999);
+	}
+
+	private boolean checkTrue(boolean condition) {
+		boolean pass = true;
+		try {
+			if (condition == true) {
+				log.info(" -------------------------- PASSED -------------------------- ");
+			} else {
+				log.info(" -------------------------- FAILED -------------------------- ");
+			}
+			Assert.assertTrue(condition);
+		} catch (Throwable e) {
+			pass = false;
+
+			// Add failures into ReportNG
+			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+			Reporter.getCurrentTestResult().setThrowable(e);
+		}
+		return pass;
+	}
+
+	protected boolean verifyTrue(boolean condition) {
+		return checkTrue(condition);
+	}
+
+	private boolean checkFalse(boolean condition) {
+		boolean pass = true;
+		try {
+			if (condition == false) {
+				log.info("");
+			} else {
+				log.info("");
+			}
+			Assert.assertFalse(condition);
+		} catch (Throwable e) {
+			pass = false;
+			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+			Reporter.getCurrentTestResult().setThrowable(e);
+		}
+		return pass;
+	}
+
+	protected boolean verifyFalse(boolean condition) {
+		return checkFalse(condition);
+	}
+
+	private boolean checkEqual(Object actual, Object expected) {
+		boolean pass = true;
+		try {
+			Assert.assertEquals(actual, expected);
+			log.info(" -------------------------- PASSED -------------------------- ");
+		} catch (Throwable e) {
+			pass = false;
+			log.info(" -------------------------- FAILED -------------------------- ");
+			VerificationFailures.getFailures().addFailureForTest(Reporter.getCurrentTestResult(), e);
+			Reporter.getCurrentTestResult().setThrowable(e);
+		}
+		return pass;
+	}
+
+	protected boolean verifyEquals(Object actual, Object expected) {
+		return checkEqual(actual, expected);
 	}
 }
