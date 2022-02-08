@@ -1,0 +1,14 @@
+[INFO ] [2022-02-08 15:31:27,934] Pre-condition: Open Browser 'firefox'
+[INFO ] [2022-02-08 15:31:37,464] User_01_Register - Step 01: Click to 'Register' link
+[INFO ] [2022-02-08 15:31:38,063] User_01_Register - Step 02: Input to all of mandatory fields in 'Register' form
+[INFO ] [2022-02-08 15:31:41,035] User_01_Register - Step 03: Verify 'Register Success Message' is displayed
+[INFO ] [2022-02-08 15:31:41,100]  -------------------------- PASSED -------------------------- 
+[INFO ] [2022-02-08 15:31:41,100] User_01_Register - Step 04: Click to 'Logout' link
+[INFO ] [2022-02-08 15:31:42,712] User_02-Login - Step 01: Click to 'Login' link
+[INFO ] [2022-02-08 15:31:44,025] User_02-Login - Step 02: input to Email Address and Password in 'Login' form with value: nguyentest7140@mail.net 123456
+[INFO ] [2022-02-08 15:31:45,108] User_02-Login - Step 03: Verify 'My Account Link' is displayed
+[INFO ] [2022-02-08 15:31:45,201]  -------------------------- PASSED -------------------------- 
+[INFO ] [2022-02-08 15:31:45,201] User_02-Login - Step 04: Click to 'My Account' link
+[INFO ] [2022-02-08 15:31:45,792] User_02-Login - Step 05: Verify 'News Letter Checkbox' is selected
+[INFO ] [2022-02-08 15:31:45,835]  -------------------------- FAILED -------------------------- 
+[INFO ] [2022-02-08 15:31:45,839] Post-condition: Clean browser
