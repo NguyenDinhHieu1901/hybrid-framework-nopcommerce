@@ -1,5 +1,6 @@
 package commons;
 
+import java.io.File;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +16,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
+import org.testng.annotations.BeforeTest;
 
 import exception.BrowserNotSupport;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -44,7 +46,7 @@ public class BaseTest {
 	}
 
 	private enum BrowserList {
-		FIREFOX, CHROME, EDGE, IE, SAFARI, COCCOC, BRAVE, OPERA
+		FIREFOX, CHROME, EDGE, IE, SAFARI, COCCOC, BRAVE, OPERA;
 	}
 
 	protected WebDriver getBrowserDriver(String browserName) {
@@ -218,9 +220,9 @@ public class BaseTest {
 		boolean pass = true;
 		try {
 			if (condition == false) {
-				log.info("");
+				log.info(" -------------------------- PASSED -------------------------- ");
 			} else {
-				log.info("");
+				log.info(" -------------------------- FAILED -------------------------- ");
 			}
 			Assert.assertFalse(condition);
 		} catch (Throwable e) {
@@ -251,5 +253,28 @@ public class BaseTest {
 
 	protected boolean verifyEquals(Object actual, Object expected) {
 		return checkEqual(actual, expected);
+	}
+	
+	public WebDriver getWebDriver() {
+		return this.driver;
+	}
+	
+	@BeforeTest
+	public void deleteAllFilesInReportNGScreenshot() {
+		log.info("---------- START delete file in folder ----------");
+		try {
+			String workingDir = System.getProperty("user.dir");
+			String pathFolderScreenshot = workingDir + "\\ReportNGScreeenshot";
+			File file = new File(pathFolderScreenshot);
+			File[] listOfFiles = file.listFiles();
+			for (int i = 0; i < listOfFiles.length; i++) {
+				if(listOfFiles[i].isFile()) {
+					new File(listOfFiles[i].toString()).delete();
+				}
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		log.info("---------- END delete file in folder ----------");
 	}
 }
