@@ -3,6 +3,7 @@ package pageObjects.nopCommerce.user;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import io.qameta.allure.Step;
 import pageUIs.nopCommerce.user.UserLoginPageUI;
 
 public class UserLoginPageObject extends BasePage {
@@ -29,6 +30,7 @@ public class UserLoginPageObject extends BasePage {
 		return PageGeneratorManager.getUserHomePage(driver);
 	}
 	
+	@Step("Login as user with information {0}, {1} and {2}")
 	public UserHomePageObject loginAsUser(String emailAddress, String password) {
 		inputToEmailTextbox(emailAddress);
 		inputToPasswordTextbox(password);

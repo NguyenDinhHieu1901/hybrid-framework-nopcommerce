@@ -3,6 +3,7 @@ package pageObjects.nopCommerce.user;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import io.qameta.allure.Step;
 import pageUIs.nopCommerce.user.UserCustomerInfoPageUI;
 
 public class UserCustomerInfoPageObject extends BasePage {
@@ -108,7 +109,8 @@ public class UserCustomerInfoPageObject extends BasePage {
 		waitForElementVisible(driver, UserCustomerInfoPageUI.COMPANY_NAME_TEXTBOX);
 		return getElementAttribute(driver, UserCustomerInfoPageUI.COMPANY_NAME_TEXTBOX, "value");
 	}
-
+	
+	@Step("Verify Newsletter checkbox is selected")
 	public boolean isNewsletterCheckboxSelected() {
 		waitForElementVisible(driver, UserCustomerInfoPageUI.NEWSLETTER_CHECKBOX);
 		return isElementSelected(driver, UserCustomerInfoPageUI.NEWSLETTER_CHECKBOX);

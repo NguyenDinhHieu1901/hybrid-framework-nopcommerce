@@ -256,19 +256,20 @@ public class BaseTest {
 	}
 	
 	public WebDriver getWebDriver() {
-		return this.driver;
+		return driver;
 	}
 	
 	@BeforeTest
-	public void deleteAllFilesInReportNGScreenshot() {
+	public void deleteAllFilesInReportFolder() {
 		log.info("---------- START delete file in folder ----------");
 		try {
 			String workingDir = System.getProperty("user.dir");
-			String pathFolderScreenshot = workingDir + "\\ReportNGScreeenshot";
+			String pathFolderScreenshot = workingDir + "\\allure-json";
 			File file = new File(pathFolderScreenshot);
 			File[] listOfFiles = file.listFiles();
 			for (int i = 0; i < listOfFiles.length; i++) {
-				if(listOfFiles[i].isFile()) {
+				if(!listOfFiles[i].toString().contains(".properties")) {
+					log.info("File name: " + listOfFiles[i].toString());
 					new File(listOfFiles[i].toString()).delete();
 				}
 			}

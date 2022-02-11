@@ -28,13 +28,29 @@
 		</layout>
 	</appender>
 
-	<appender name="testng" class="commons.TestNGAppender">
+	<appender name="reportng" class="commons.TestNGAppender">
 		<param name="Threshold" value="INFO" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="[%-5p] [%d] %m%n" />
 		</layout>
 	</appender>
-
+	
+	<category name="com.nopcommerce.user">
+		<priority value="all"/>
+		<appender-ref ref="console"/>
+		<appender-ref ref="logfile"/>
+		<appender-ref ref="file"/>
+		<appender-ref ref="reportng"/>
+	</category>
+	
+	<category name="com.facebook.user">
+		<priority value="all"/>
+		<appender-ref ref="console"/>
+		<appender-ref ref="logfile"/>
+		<appender-ref ref="file"/>
+		<appender-ref ref="reportng"/>
+	</category>
+	
 	<root>
 		<priority value="warn" />
 	</root>

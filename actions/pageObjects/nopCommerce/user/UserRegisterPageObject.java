@@ -3,6 +3,7 @@ package pageObjects.nopCommerce.user;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
+import io.qameta.allure.Step;
 import pageUIs.nopCommerce.user.UserRegisterPageUI;
 
 public class UserRegisterPageObject extends BasePage {
@@ -44,6 +45,7 @@ public class UserRegisterPageObject extends BasePage {
 		sendkeyToElement(driver, UserRegisterPageUI.CONFIRM_PASSWORD_TEXTBOX, password);
 	}
 	
+	@Step("Register as User with information {0}, {1} and {2}")
 	public void registerAsUser(String firstName, String lastName, String emailAddress, String password) {
 		inputToFirstNameTextbox(firstName);
 		inputToLastNameTextbox(lastName);
@@ -77,7 +79,8 @@ public class UserRegisterPageObject extends BasePage {
 		waitForElementVisible(driver, UserRegisterPageUI.CONFIRM_PASSWORD_ERROR_MESSAGE);
 		return getElementText(driver, UserRegisterPageUI.CONFIRM_PASSWORD_ERROR_MESSAGE);
 	}
-
+	
+	@Step("Get Register success message")
 	public String getRegisterSuccessMessage() {
 		waitForElementVisible(driver, UserRegisterPageUI.REGISTER_SUCCESSFUL_MESSAGE);
 		return getElementText(driver, UserRegisterPageUI.REGISTER_SUCCESSFUL_MESSAGE);
