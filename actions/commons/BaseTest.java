@@ -1,6 +1,7 @@
 package commons;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -254,11 +255,11 @@ public class BaseTest {
 	protected boolean verifyEquals(Object actual, Object expected) {
 		return checkEqual(actual, expected);
 	}
-	
+
 	public WebDriver getWebDriver() {
 		return driver;
 	}
-	
+
 	@BeforeTest
 	public void deleteAllFilesInReportFolder() {
 		log.info("---------- START delete file in folder ----------");
@@ -268,7 +269,7 @@ public class BaseTest {
 			File file = new File(pathFolderScreenshot);
 			File[] listOfFiles = file.listFiles();
 			for (int i = 0; i < listOfFiles.length; i++) {
-				if(!listOfFiles[i].toString().contains(".properties")) {
+				if (!listOfFiles[i].toString().contains(".properties")) {
 					log.info("File name: " + listOfFiles[i].toString());
 					new File(listOfFiles[i].toString()).delete();
 				}
@@ -277,5 +278,69 @@ public class BaseTest {
 			System.out.println(e.getMessage());
 		}
 		log.info("---------- END delete file in folder ----------");
+	}
+
+	protected void closeBrowserAndDriver() {
+		String cmd = "";
+		try {
+			String osName = System.getProperty("os.name").toLowerCase();
+			log.info("OS name = " + osName);
+			String driverInstanceName = driver.toString().toLowerCase();
+			log.info("Driver Instance name = " + driverInstanceName);
+
+			// clean executable file
+			if (driverInstanceName.contains("chrome")) {
+				if (osName.contains("windows")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq chromedriver*\"";
+				} else {
+					cmd = "pkill chromedriver";
+				}
+			} else if (driverInstanceName.contains("firefox")) {
+				if (osName.contains("windows")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq geckodriver*\"";
+				} else {
+					cmd = "pkill geckodriver";
+				}
+			} else if (driverInstanceName.contains("edge")) {
+				if (osName.contains("windows")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq msedgedriver*\"";
+				} else {
+					cmd = "pkill msedgedriver";
+				}
+			} else if (driverInstanceName.contains("ie")) {
+				if (osName.contains("windows")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq IEDriverServer*\"";
+				} else {
+					cmd = "pkill IEDriverServer";
+				}
+			} else if (driverInstanceName.contains("opera")) {
+				if (osName.contains("windows")) {
+					cmd = "taskkill /F /FI \"IMAGENAME eq operadriver*\"";
+				} else {
+					cmd = "pkill operadriver";
+				}
+			} else if (driverInstanceName.contains("safari")) {
+				if (osName.contains("mac")) {
+					cmd = "pkill safaridriver";
+				}
+			}
+
+			// close browser
+			if (driver != null) {
+				driver.manage().deleteAllCookies();
+				driver.quit();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				Process process = Runtime.getRuntime().exec(cmd);
+				process.waitFor();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
