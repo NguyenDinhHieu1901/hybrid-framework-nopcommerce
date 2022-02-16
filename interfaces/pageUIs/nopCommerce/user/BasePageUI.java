@@ -12,5 +12,9 @@ public class BasePageUI {
 	public static final String DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA = "xpath=//div[contains(@class,'%s')]//a[text()='%s']";
 	public static final String DYNAMIC_PAGES_AT_MENU_AREA = "xpath=//ul[@class='%s']//a[text()='%s']";
 	public static final String DYNAMIC_PAGES_AT_FOOTER_AREA = "xpath=//div[@class='%s']//a[text()='%s']";
-	//div[@class='footer-upper']//a[text()='Search']
+	public static final String TEXTBOX_BY_ID = "xpath=//input[@id='%s']";
+	public static final String RADIO_BUTTON_BY_TEXT = "xpath=//label[text()='%s']/preceding-sibling::input";
+	public static final String DROPDOWN_LIST_BY_NAME = "xpath=//select[@name='%s']";
+	public static final String HEADER_LINK_BY_TEXT = "xpath=//div[@class='header']//a[text()='%s']";
+	public static final String BUTTON_BY_TEXT = "xpath=//button[text()='%s']";
 }

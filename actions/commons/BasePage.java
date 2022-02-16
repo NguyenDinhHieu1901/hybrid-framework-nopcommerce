@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
@@ -567,6 +568,16 @@ public class BasePage {
 		getWebElement(driver, locatorType).sendKeys(fullFileNames);
 	}
 
+	public Set<Cookie> getAllCookies(WebDriver driver) {
+		return driver.manage().getCookies();
+	}
+
+	public void setAllCookies(WebDriver driver, Set<Cookie> allCookies) {
+		for (Cookie cookie : allCookies) {
+			driver.manage().addCookie(cookie);
+		}
+	}
+
 	public BasePage openPagesAtMyAccountByName(WebDriver driver, String pageName) {
 		waitForClickable(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation", pageName);
 		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation", pageName);
@@ -625,7 +636,7 @@ public class BasePage {
 		clickToElement(driver, BasePageUI.MY_PRODUCT_REVIEWS_LINK);
 		return PageGeneratorManager.getUserMyProductReviewsPage(driver);
 	}
-	
+
 	@Step("click to Logout link")
 	public UserHomePageObject clickToLogoutLinkAtUser(WebDriver driver) {
 		waitForElementVisible(driver, BasePageUI.LOGOUT_LINK_AT_USER);
@@ -645,6 +656,35 @@ public class BasePage {
 		clickToElement(driver, AdminBasePageUI.NAV_SIDEBAR_MENU, menuName);
 		waitForClickable(driver, AdminBasePageUI.NAV_SIDEBAR_SUB_MENU, submenuName);
 		clickToElement(driver, AdminBasePageUI.NAV_SIDEBAR_SUB_MENU, submenuName);
+	}
+
+	@Step("Input to {1} Textbox with value: '{2}'")
+	public void sendkeyToTextboxByID(WebDriver driver, String textID, String textValue) {
+		waitForElementVisible(driver, BasePageUI.TEXTBOX_BY_ID, textID);
+		sendkeyToElement(driver, BasePageUI.TEXTBOX_BY_ID, textValue, textID);
+	}
+
+	@Step("Click to {1} Radio button")
+	public void clickToRadioButtonByText(WebDriver driver, String textLabel) {
+		waitForClickable(driver, BasePageUI.RADIO_BUTTON_BY_TEXT, textLabel);
+		clickToElement(driver, BasePageUI.RADIO_BUTTON_BY_TEXT, textLabel);
+	}
+
+	@Step("Click to {1} button")
+	public void clickToButtonByText(WebDriver driver, String textValue) {
+		waitForClickable(driver, BasePageUI.BUTTON_BY_TEXT, textValue);
+		clickToElement(driver, BasePageUI.BUTTON_BY_TEXT, textValue);
+	}
+
+	@Step("Select {2} in Dropdown list with attribute: {1} ")
+	public void selectItemInDropdownByName(WebDriver driver, String dropdownName, String textItem) {
+		selectItemInDefaultDropdown(driver, BasePageUI.DROPDOWN_LIST_BY_NAME, textItem, dropdownName);
+	}
+
+	@Step("Click to {1} Link")
+	public void openHeaderPageByText(WebDriver driver, String pageName) {
+		waitForClickable(driver, BasePageUI.HEADER_LINK_BY_TEXT, pageName);
+		clickToElement(driver, BasePageUI.HEADER_LINK_BY_TEXT, pageName);
 	}
 
 	private long longTimeout = GlobalConstants.LONG_TIMEOUT;
