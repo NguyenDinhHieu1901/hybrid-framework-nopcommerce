@@ -1,4 +1,4 @@
-package javaOOP;
+package javaOOP.knowledge;
 
 public class Topic_07_Super_Child_Constructor extends Topic_07_Super_Parent_Constructor {
 	private String carName;

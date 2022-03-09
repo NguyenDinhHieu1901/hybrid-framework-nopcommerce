@@ -1,4 +1,4 @@
-package javaOOP;
+package javaOOP.knowledge;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -7,6 +7,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import javaOOP.Enum.BrowserList;
+import javaOOP.Enum.EnvironmentList;
 
 public class Topic_05_Enum {
 	private WebDriver driver;

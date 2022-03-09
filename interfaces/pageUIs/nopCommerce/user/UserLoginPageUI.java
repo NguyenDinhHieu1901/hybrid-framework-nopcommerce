@@ -6,4 +6,5 @@ public class UserLoginPageUI {
 	public static final String LOGIN_BUTTON = "css=button.login-button";
 	public static final String EMAIL_ERROR_MESSAGE = "id=Email-error";
 	public static final String UNSUCCESSFUL_ERROR_MESSAGE = "CSS=div[class*='message-error']";
+	public static final String NOPCOMMERCE_IMAGE = "xpath=//img[@alt='nopCommerce demo store']";
 }

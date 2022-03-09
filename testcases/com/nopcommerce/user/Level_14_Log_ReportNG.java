@@ -13,7 +13,7 @@ import pageObjects.nopCommerce.user.UserLoginPageObject;
 import pageObjects.nopCommerce.user.PageGeneratorManager;
 import pageObjects.nopCommerce.user.UserRegisterPageObject;
 
-public class Level_14_Log_Report extends BaseTest {
+public class Level_14_Log_ReportNG extends BaseTest {
 
 	@Parameters("browser")
 	@BeforeClass

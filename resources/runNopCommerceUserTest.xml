@@ -11,12 +11,14 @@
 		<!-- <listener class-name="reportConfig.ExtentTestListenerV3" /> -->
 		<!-- <listener class-name="reportConfig.ExtentTestListenerV4" /> -->
 		<listener class-name="reportConfig.AllureTestListener" />
+		<listener class-name="RetryListener" />
 	</listeners>
 
 	<test name="Run on Firefox">
 		<parameter name="browser" value="firefox" />
 		<classes>
-			<class name="com.nopcommerce.user.Level_14_Allure_Report" />
+			<!-- <class name="com.nopcommerce.commons.Commons_01_Login" /> -->
+			<class name="com.nopcommerce.product.Level_18_Sort_Display_Paging" />
 		</classes>
 	</test>
 

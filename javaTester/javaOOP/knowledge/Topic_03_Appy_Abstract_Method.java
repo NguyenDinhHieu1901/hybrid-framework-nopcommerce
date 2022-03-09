@@ -1,4 +1,4 @@
-package javaOOP;
+package javaOOP.knowledge;
 
 import java.util.Scanner;
 

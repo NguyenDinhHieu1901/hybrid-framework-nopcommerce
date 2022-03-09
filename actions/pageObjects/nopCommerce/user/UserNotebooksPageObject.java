@@ -1,5 +1,6 @@
 package pageObjects.nopCommerce.user;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -15,10 +16,79 @@ public class UserNotebooksPageObject extends BasePage {
 	public UserNotebooksPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
-
+	
+	public void selectItemInSortByDropdown(String textItem) {
+		waitForClickable(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN);
+		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, textItem);
+	}
+	
+	public boolean isProductNameAscendingSort() {
+		List<String> productNames = getAllElementText(driver, UserNotebooksPageUI.PRODUCT_TITLE_LINK);
+		List<String> productNamesSorted = new ArrayList<>(productNames);
+		Collections.sort(productNamesSorted);
+		for (String sort : productNamesSorted) {
+			System.out.println("After Ascending sorted -> " + sort);
+		}
+		return productNames.equals(productNamesSorted);
+	}
+	
+	public boolean isProductNameDescendingSort() {
+		List<String> productNames = getAllElementText(driver, UserNotebooksPageUI.PRODUCT_TITLE_LINK);
+		List<String> productNamesSorted = new ArrayList<>(productNames);
+		Collections.sort(productNamesSorted);
+		Collections.reverse(productNamesSorted);
+		for (String sort : productNamesSorted) {
+			System.out.println("After Descending sorted -> " + sort);
+		}
+		return productNames.equals(productNamesSorted);
+	}
+	
+	public boolean isProductPriceLowToHigh() {
+		List<String> productPrices = getAllElementText(driver, UserNotebooksPageUI.PRODUCT_PRICES_TEXT);
+		List<Float> productPricesFloat = new ArrayList<>();
+		for (String price : productPrices) {
+			productPricesFloat.add(Float.parseFloat(price.replace("$", "").replace(",", "")));
+		}
+		
+		for (Float sort : productPricesFloat) {
+			System.out.println("Before Low to High sorted -> " + sort);
+		}
+		
+		List<Float> productPricesFloatSorted = new ArrayList<>(productPricesFloat);
+		Collections.sort(productPricesFloatSorted);
+		
+		for (Float sort : productPricesFloatSorted) {
+			System.out.println("After Low to High sorted -> " + sort);
+		}
+		
+		return productPricesFloat.equals(productPricesFloatSorted);
+	}
+	
+	public boolean isProductPriceHighToLow() {
+		List<String> productPrices = getAllElementText(driver, UserNotebooksPageUI.PRODUCT_PRICES_TEXT);
+		List<Float> productPricesFloat = new ArrayList<>();
+		for (String price : productPrices) {
+			productPricesFloat.add(Float.parseFloat(price.replace("$", "").replace(",", "")));
+		}
+		
+		for (Float sort : productPricesFloat) {
+			System.out.println("Before High to Low  sorted -> " + sort);
+		}
+		
+		List<Float> productPricesFloatSorted = new ArrayList<>(productPricesFloat);
+		Collections.sort(productPricesFloatSorted);
+		Collections.reverse(productPricesFloatSorted);
+		
+		for (Float sort : productPricesFloatSorted) {
+			System.out.println("After High to Low sorted -> " + sort);
+		}
+		
+		return productPricesFloat.equals(productPricesFloatSorted);
+	}
+	
 	public void selectSortByNameAToZ(String expectedValue) {
-		waitForElementVisible(driver, UserNotebooksPageUI.DYNAMIC_DEFAULT_DROPDOWN, "products-orderby");
-		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.DYNAMIC_DEFAULT_DROPDOWN, expectedValue, "products-orderby");
+		waitForElementVisible(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, "products-orderby");
+		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, expectedValue, "products-orderby");
 	}
 
 	public List<String> getExpectedProductTitleList() {
@@ -72,8 +142,8 @@ public class UserNotebooksPageObject extends BasePage {
 	}
 
 	public void selectDisplayNumberPerPaging(String expectedValue) {
-		waitForElementVisible(driver, UserNotebooksPageUI.DYNAMIC_DEFAULT_DROPDOWN, "products-pagesize");
-		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.DYNAMIC_DEFAULT_DROPDOWN, expectedValue, "products-pagesize");
+		waitForElementVisible(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, "products-pagesize");
+		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, expectedValue, "products-pagesize");
 	}
 
 	public boolean isNextPageButtonDisplay() {

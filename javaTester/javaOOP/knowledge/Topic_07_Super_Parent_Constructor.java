@@ -1,4 +1,4 @@
-package javaOOP;
+package javaOOP.knowledge;
 
 public class Topic_07_Super_Parent_Constructor {
 	protected String carName;

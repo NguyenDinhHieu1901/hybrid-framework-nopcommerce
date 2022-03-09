@@ -208,6 +208,10 @@ public class BasePage {
 	protected String getElementText(WebDriver driver, String locatorType) {
 		return getWebElement(driver, locatorType).getText();
 	}
+	
+	protected String getElementText(WebDriver driver, String locatorType, String... dynamicValues) {
+		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).getText();
+	}
 
 	protected List<String> getAllElementText(WebDriver driver, String locatorType) {
 		List<WebElement> allElement = getListWebElement(driver, locatorType);
@@ -216,10 +220,6 @@ public class BasePage {
 			allElementText.add(element.getText());
 		}
 		return allElementText;
-	}
-
-	protected String getElementText(WebDriver driver, String locatorType, String... dynamicValues) {
-		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).getText();
 	}
 
 	protected void selectItemInDefaultDropdown(WebDriver driver, String locatorType, String textItem) {
@@ -381,11 +381,11 @@ public class BasePage {
 		List<WebElement> elements = getListWebElement(driver, locatorType);
 		overrideTimeout(driver, longTimeout);
 		if (elements.size() == 0) {
-			System.out.println("Element is not invisible and not in DOM!");
+			System.out.println("Element is not visible and not in DOM!");
 			System.out.println("End time = " + new Date().toString());
 			return true;
 		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
-			System.out.println("Element is not invisible and in DOM!");
+			System.out.println("Element is not visible and in DOM!");
 			System.out.println("End time = " + new Date().toString());
 			return true;
 		} else {
@@ -461,7 +461,7 @@ public class BasePage {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
 		boolean statusImage = (boolean) jsExecutor.executeScript("return arguments[0].complete && arguments[0].naturalWidth != 'underfined' && arguments[0].naturalWidth > 0;", getWebElement(driver, locatorType));
 
-		if (statusImage) {
+		if (statusImage == true) {
 			return true;
 		} else {
 			return false;
