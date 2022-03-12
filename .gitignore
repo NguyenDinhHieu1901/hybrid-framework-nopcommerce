@@ -2,3 +2,5 @@
 /test-output/
 /logs/
 /ExtentReport/
+/allure-json/
+/snapshot/
