@@ -208,14 +208,14 @@ public class BasePage {
 	protected String getElementText(WebDriver driver, String locatorType) {
 		return getWebElement(driver, locatorType).getText();
 	}
-	
+
 	protected String getElementText(WebDriver driver, String locatorType, String... dynamicValues) {
 		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).getText();
 	}
 
 	protected List<String> getAllElementText(WebDriver driver, String locatorType) {
-		List<WebElement> allElement = getListWebElement(driver, locatorType);
 		List<String> allElementText = new ArrayList<String>();
+		List<WebElement> allElement = getListWebElement(driver, locatorType);
 		for (WebElement element : allElement) {
 			allElementText.add(element.getText());
 		}
@@ -395,6 +395,26 @@ public class BasePage {
 		}
 	}
 
+	protected boolean isElementUndisplayed(WebDriver driver, String locatorType, String... dynamicValues) {
+		System.out.println("Start time = " + new Date().toString());
+		overrideTimeout(driver, shortTimeout);
+		List<WebElement> elements = getListWebElement(driver, getDynamicLocator(locatorType, dynamicValues));
+		overrideTimeout(driver, longTimeout);
+		if (elements.size() == 0) {
+			System.out.println("Element is not visible and not in DOM!");
+			System.out.println("End time = " + new Date().toString());
+			return true;
+		} else if (elements.size() > 0 && !elements.get(0).isDisplayed()) {
+			System.out.println("Element is not visible and in DOM!");
+			System.out.println("End time = " + new Date().toString());
+			return true;
+		} else {
+			System.out.println("Element is visible!");
+			System.out.println("End time = " + new Date().toString());
+			return false;
+		}
+	}
+
 	protected void switchToFrameIframe(WebDriver driver, String locatorType) {
 		driver.switchTo().frame(getWebElement(driver, locatorType));
 	}
@@ -514,7 +534,7 @@ public class BasePage {
 
 	protected void waitForAllElementVisible(WebDriver driver, String locatorType) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeout);
-		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(locatorType)));
+		explicitWait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByLocator(locatorType))));
 	}
 
 	protected void waitForAllElementVisible(WebDriver driver, String locatorType, String... dynamicValues) {

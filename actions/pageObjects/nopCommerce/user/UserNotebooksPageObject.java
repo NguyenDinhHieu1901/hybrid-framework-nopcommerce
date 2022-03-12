@@ -16,13 +16,15 @@ public class UserNotebooksPageObject extends BasePage {
 	public UserNotebooksPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
-	
-	public void selectItemInSortByDropdown(String textItem) {
-		waitForClickable(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN);
-		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, textItem);
+
+	public void selectItemInDefaultDropdownByID(String dropdownID, String textItem) {
+		waitForClickable(driver, UserNotebooksPageUI.DROPDOWN_BY_ID, dropdownID);
+		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.DROPDOWN_BY_ID, textItem, dropdownID);
+		waitForElementInvisible(driver, UserNotebooksPageUI.AJAX_LOADING);
 	}
-	
+
 	public boolean isProductNameAscendingSort() {
+		waitForAllElementVisible(driver, UserNotebooksPageUI.PRODUCT_TITLE_LINK);
 		List<String> productNames = getAllElementText(driver, UserNotebooksPageUI.PRODUCT_TITLE_LINK);
 		List<String> productNamesSorted = new ArrayList<>(productNames);
 		Collections.sort(productNamesSorted);
@@ -31,8 +33,9 @@ public class UserNotebooksPageObject extends BasePage {
 		}
 		return productNames.equals(productNamesSorted);
 	}
-	
+
 	public boolean isProductNameDescendingSort() {
+		waitForAllElementVisible(driver, UserNotebooksPageUI.PRODUCT_TITLE_LINK);
 		List<String> productNames = getAllElementText(driver, UserNotebooksPageUI.PRODUCT_TITLE_LINK);
 		List<String> productNamesSorted = new ArrayList<>(productNames);
 		Collections.sort(productNamesSorted);
@@ -42,53 +45,55 @@ public class UserNotebooksPageObject extends BasePage {
 		}
 		return productNames.equals(productNamesSorted);
 	}
-	
+
 	public boolean isProductPriceLowToHigh() {
+		waitForAllElementVisible(driver, UserNotebooksPageUI.PRODUCT_PRICES_TEXT);
 		List<String> productPrices = getAllElementText(driver, UserNotebooksPageUI.PRODUCT_PRICES_TEXT);
 		List<Float> productPricesFloat = new ArrayList<>();
 		for (String price : productPrices) {
 			productPricesFloat.add(Float.parseFloat(price.replace("$", "").replace(",", "")));
 		}
-		
+
 		for (Float sort : productPricesFloat) {
 			System.out.println("Before Low to High sorted -> " + sort);
 		}
-		
+
 		List<Float> productPricesFloatSorted = new ArrayList<>(productPricesFloat);
 		Collections.sort(productPricesFloatSorted);
-		
+
 		for (Float sort : productPricesFloatSorted) {
 			System.out.println("After Low to High sorted -> " + sort);
 		}
-		
+
 		return productPricesFloat.equals(productPricesFloatSorted);
 	}
-	
+
 	public boolean isProductPriceHighToLow() {
+		waitForAllElementVisible(driver, UserNotebooksPageUI.PRODUCT_PRICES_TEXT);
 		List<String> productPrices = getAllElementText(driver, UserNotebooksPageUI.PRODUCT_PRICES_TEXT);
 		List<Float> productPricesFloat = new ArrayList<>();
 		for (String price : productPrices) {
 			productPricesFloat.add(Float.parseFloat(price.replace("$", "").replace(",", "")));
 		}
-		
+
 		for (Float sort : productPricesFloat) {
 			System.out.println("Before High to Low  sorted -> " + sort);
 		}
-		
+
 		List<Float> productPricesFloatSorted = new ArrayList<>(productPricesFloat);
 		Collections.sort(productPricesFloatSorted);
 		Collections.reverse(productPricesFloatSorted);
-		
+
 		for (Float sort : productPricesFloatSorted) {
 			System.out.println("After High to Low sorted -> " + sort);
 		}
-		
+
 		return productPricesFloat.equals(productPricesFloatSorted);
 	}
-	
+
 	public void selectSortByNameAToZ(String expectedValue) {
-		waitForElementVisible(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, "products-orderby");
-		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, expectedValue, "products-orderby");
+		waitForElementVisible(driver, UserNotebooksPageUI.DROPDOWN_BY_ID, "products-orderby");
+		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.DROPDOWN_BY_ID, expectedValue, "products-orderby");
 	}
 
 	public List<String> getExpectedProductTitleList() {
@@ -141,35 +146,29 @@ public class UserNotebooksPageObject extends BasePage {
 		return productPriceList;
 	}
 
-	public void selectDisplayNumberPerPaging(String expectedValue) {
-		waitForElementVisible(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, "products-pagesize");
-		selectItemInDefaultDropdown(driver, UserNotebooksPageUI.SORT_BY_DROPDOWN, expectedValue, "products-pagesize");
+	public boolean isPageIconDisplayedByClass(String className) {
+		waitForElementVisible(driver, UserNotebooksPageUI.PAGE_ICON_BY_CLASS, className);
+		return isElementDisplay(driver, UserNotebooksPageUI.PAGE_ICON_BY_CLASS, className);
 	}
 
-	public boolean isNextPageButtonDisplay() {
-		waitToJQueryAndJSLoadedSuccess(driver);
-		boolean flag = false;
-		if (getElementText(driver, UserNotebooksPageUI.CURRENT_PAGE_BUTTON).equals("1")) {
-			flag = isElementDisplay(driver, UserNotebooksPageUI.NAVIGATE_PAGE_DYNAMIC_XPATH, "next-page", "Next");
-		}
-		return flag;
+	public void clickToPageIconByClass(String className) {
+		waitForClickable(driver, UserNotebooksPageUI.PAGE_ICON_BY_CLASS, className);
+		clickToElement(driver, UserNotebooksPageUI.PAGE_ICON_BY_CLASS, className);
+		waitForElementInvisible(driver, UserNotebooksPageUI.AJAX_LOADING);
 	}
 
-	public void clickToNextPageButton() {
-		waitForClickable(driver, UserNotebooksPageUI.NAVIGATE_PAGE_DYNAMIC_XPATH, "next-page", "Next");
-		clickToElement(driver, UserNotebooksPageUI.NAVIGATE_PAGE_DYNAMIC_XPATH, "next-page", "Next");
+	public int getProductNumberSize() {
+		waitForAllElementVisible(driver, UserNotebooksPageUI.PRODUCT_TITLE_LINK);
+		List<String> productNames = getAllElementText(driver, UserNotebooksPageUI.PRODUCT_TITLE_LINK);
+		return productNames.size();
 	}
 
-	public boolean isPreviousPageButtonDisplay() {
-		waitToJQueryAndJSLoadedSuccess(driver);
-		boolean flag = false;
-		if (getElementText(driver, UserNotebooksPageUI.CURRENT_PAGE_BUTTON).equals("2")) {
-			flag = isElementDisplay(driver, UserNotebooksPageUI.NAVIGATE_PAGE_DYNAMIC_XPATH, "previous-page", "Previous");
-		}
-		return flag;
+	public String getCurrentPageNumber() {
+		waitForElementVisible(driver, UserNotebooksPageUI.CURRENT_PAGE_ICON);
+		return getElementText(driver, UserNotebooksPageUI.CURRENT_PAGE_ICON);
 	}
 
-	public void scrollToBeginnerPage() {
-		scrollToTopPage(driver);
+	public boolean isPageIconUndisplayedByClass(String className) {
+		return isElementUndisplayed(driver, UserNotebooksPageUI.PAGE_ICON_BY_CLASS, className);
 	}
 }

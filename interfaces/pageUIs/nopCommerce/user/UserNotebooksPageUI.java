@@ -1,9 +1,10 @@
 package pageUIs.nopCommerce.user;
 
 public class UserNotebooksPageUI {
-	public static final String SORT_BY_DROPDOWN = "xpath=//select[@id='products-orderby']";
+	public static final String DROPDOWN_BY_ID = "xpath=//select[@id='%s']";
 	public static final String PRODUCT_TITLE_LINK = "xpath=//h2[@class='product-title']";
 	public static final String PRODUCT_PRICES_TEXT = "xpath=//div[@class='prices']";
-	public static final String NAVIGATE_PAGE_DYNAMIC_XPATH = "xpath=//li[@class='%s']//a[text()='%s']";
-	public static final String CURRENT_PAGE_BUTTON = "xpath=//li[@class='current-page']";
+	public static final String AJAX_LOADING = "xpath=//div[@class='ajax-products-busy']";
+	public static final String PAGE_ICON_BY_CLASS = "xpath=//div[@class='pager']//li[@class='%s']/a";
+	public static final String CURRENT_PAGE_ICON = "xpath=//li[@class='current-page']";
 }

@@ -24,6 +24,6 @@ public class GlobalConstants {
 	public static final String DB_TEST_USER = "automation";
 	public static final String DB_TSEST_PASS = "P@ssw0rd1@";
 	public static final long SHORT_TIMEOUT = 5;
-	public static final long LONG_TIMEOUT = 10;
+	public static final long LONG_TIMEOUT = 15;
 	public static final long RETRY_TEST_FAIL = 3;
 }
