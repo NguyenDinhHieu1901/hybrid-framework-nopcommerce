@@ -7,4 +7,5 @@ public class UserNotebooksPageUI {
 	public static final String AJAX_LOADING = "xpath=//div[@class='ajax-products-busy']";
 	public static final String PAGE_ICON_BY_CLASS = "xpath=//div[@class='pager']//li[@class='%s']/a";
 	public static final String CURRENT_PAGE_ICON = "xpath=//li[@class='current-page']";
+	public static final String QUANTITY_OF_PRODUCT_BY_VALUE = "xpath=//div[@class='add-to-cart']//input[@id='product_enteredQuantity_4']";
 }

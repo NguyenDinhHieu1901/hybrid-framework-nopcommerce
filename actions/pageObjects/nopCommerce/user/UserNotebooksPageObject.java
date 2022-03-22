@@ -171,4 +171,9 @@ public class UserNotebooksPageObject extends BasePage {
 	public boolean isPageIconUndisplayedByClass(String className) {
 		return isElementUndisplayed(driver, UserNotebooksPageUI.PAGE_ICON_BY_CLASS, className);
 	}
+
+	public String getQuantityOfProductByValue(String attributeName) {
+		waitForElementVisible(driver, UserNotebooksPageUI.QUANTITY_OF_PRODUCT_BY_VALUE);
+		return getElementAttribute(driver, UserNotebooksPageUI.QUANTITY_OF_PRODUCT_BY_VALUE, attributeName);
+	}
 }

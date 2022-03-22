@@ -29,6 +29,7 @@ import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
 import pageObjects.nopCommerce.user.UserHomePageObject;
 import pageObjects.nopCommerce.user.UserMyProductReviewsPageObject;
 import pageObjects.nopCommerce.user.UserRewardPointPageObject;
+import pageObjects.nopCommerce.user.UserWishlistPageObject;
 import pageUIs.nopCommerce.admin.AdminBasePageUI;
 import pageUIs.nopCommerce.user.BasePageUI;
 
@@ -622,10 +623,15 @@ public class BasePage {
 		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MY_ACCOUNT_AREA, "block-account-navigation", pageName);
 	}
 
-	public void openPagesAtMenuByName(WebDriver driver, String menuName, String submenuName) {
-		waitForElementVisible(driver, BasePageUI.DYNAMIC_PAGES_AT_MENU_AREA, "top-menu notmobile", menuName);
-		hoverMouseToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MENU_AREA, "top-menu notmobile", menuName);
-		clickToElement(driver, BasePageUI.DYNAMIC_PAGES_AT_MENU_AREA, "top-menu notmobile", submenuName);
+	public void openMenuByPageName(WebDriver driver, String menuName) {
+		waitForClickable(driver, BasePageUI.MENU_BY_PAGE_NAMES, menuName);
+		clickToElement(driver, BasePageUI.MENU_BY_PAGE_NAMES, menuName);
+	}
+
+	public void openSubMenuByPageName(WebDriver driver, String menuName, String submenuName) {
+		waitForElementVisible(driver, BasePageUI.MENU_BY_PAGE_NAMES, menuName);
+		hoverMouseToElement(driver, BasePageUI.MENU_BY_PAGE_NAMES, menuName);
+		clickToElement(driver, BasePageUI.SUBMENU_BY_PAGE_NAMES, submenuName);
 	}
 
 	public void openPagesAtFooterByName(WebDriver driver, String pageName) {
@@ -662,6 +668,18 @@ public class BasePage {
 		waitForElementVisible(driver, BasePageUI.LOGOUT_LINK_AT_USER);
 		clickToElement(driver, BasePageUI.LOGOUT_LINK_AT_USER);
 		return PageGeneratorManager.getUserHomePage(driver);
+	}
+
+	public UserWishlistPageObject clickToWishlistLink(WebDriver driver) {
+		scrollToElement(driver, BasePageUI.WISHLIST_LINK_AT_USER);
+		waitForClickable(driver, BasePageUI.WISHLIST_LINK_AT_USER);
+		clickToElement(driver, BasePageUI.WISHLIST_LINK_AT_USER);
+		return PageGeneratorManager.getUserWishlistPage(driver);
+	}
+
+	public void clickToAddToWishlistButton(WebDriver driver) {
+		waitForClickable(driver, BasePageUI.ADD_TO_WISHLIST_BUTTON);
+		clickToElement(driver, BasePageUI.ADD_TO_WISHLIST_BUTTON);
 	}
 
 	public AdminLoginPageObject clickToLogoutLinkAtAdmin(WebDriver driver) {
@@ -705,6 +723,41 @@ public class BasePage {
 	public void openHeaderPageByText(WebDriver driver, String pageName) {
 		waitForClickable(driver, BasePageUI.HEADER_LINK_BY_TEXT, pageName);
 		clickToElement(driver, BasePageUI.HEADER_LINK_BY_TEXT, pageName);
+	}
+
+	public void clickToProductTitleLinkByName(WebDriver driver, String productName) {
+		scrollToElement(driver, BasePageUI.PRODUCT_LINK_BY_NAME, productName);
+		waitForClickable(driver, BasePageUI.PRODUCT_LINK_BY_NAME, productName);
+		clickToElement(driver, BasePageUI.PRODUCT_LINK_BY_NAME, productName);
+	}
+
+	public String getAmountOfProductByClass(WebDriver driver, String className) {
+		waitForElementVisible(driver, BasePageUI.AMOUNT_OF_PRODUCT_BY_CLASS, className);
+		String amoutProduct = getElementText(driver, BasePageUI.AMOUNT_OF_PRODUCT_BY_CLASS, className);
+		return amoutProduct.replaceAll("[()]", "");
+	}
+
+	public String getSuccessMessage(WebDriver driver) {
+		waitForElementInvisible(driver, BasePageUI.AJAX_LOADING_IN_PRODUCT_PAGE);
+		waitForElementVisible(driver, BasePageUI.SUCCESS_MESSAGE);
+		return getElementText(driver, BasePageUI.SUCCESS_MESSAGE);
+	}
+
+	public void clickToCloseSuccessMessageIcon(WebDriver driver) {
+		waitForClickable(driver, BasePageUI.CLOSE_MESSAGE_ICON);
+		clickToElement(driver, BasePageUI.CLOSE_MESSAGE_ICON);
+		sleepInSecond(1);
+	}
+
+	public void clickToAddToCompareListButtonByProductName(WebDriver driver, String productName) {
+		waitForClickable(driver, BasePageUI.ADD_TO_COMPARE_LIST_BUTTON_BY_PRODUCT_NAME, productName);
+		clickToElement(driver, BasePageUI.ADD_TO_COMPARE_LIST_BUTTON_BY_PRODUCT_NAME, productName);
+	}
+
+	public void openPageAtFooterByPageName(WebDriver driver, String pageName) {
+		scrollToElement(driver, BasePageUI.FOOTER_PAGE_BY_NAME, pageName);
+		waitForClickable(driver, BasePageUI.FOOTER_PAGE_BY_NAME, pageName);
+		clickToElement(driver, BasePageUI.FOOTER_PAGE_BY_NAME, pageName);
 	}
 
 	private long longTimeout = GlobalConstants.LONG_TIMEOUT;

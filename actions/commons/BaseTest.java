@@ -98,7 +98,7 @@ public class BaseTest {
 		return driver;
 	}
 
-	protected WebDriver getBrowserDriver(String browserName, String environmentName) {
+	protected WebDriver getBrowserDriver(String browserName, String environmentUrl) {
 		if (browserName.equals("firefox")) {
 			WebDriverManager.firefoxdriver().setup();
 			driver = new FirefoxDriver();
@@ -142,7 +142,8 @@ public class BaseTest {
 
 		driver.manage().timeouts().implicitlyWait(GlobalConstants.LONG_TIMEOUT, TimeUnit.SECONDS);
 		driver.manage().window().maximize();
-		getEnvironmentBrowser(environmentName, GlobalConstants.ADMIN_DEV_URL);
+		// getEnvironmentBrowser(environmentName, GlobalConstants.ADMIN_DEV_URL);
+		driver.get(environmentUrl);
 		return driver;
 	}
 
@@ -176,18 +177,18 @@ public class BaseTest {
 		return driver;
 	}
 
-	private void getEnvironmentBrowser(String environmentName, String url) {
-		switch (environmentName) {
-		case "dev":
-			driver.get(url);
-			break;
-		case "testing":
-			driver.get(url);
-			break;
-		default:
-			throw new RuntimeException("Environment name invalid.");
-		}
-	}
+	// private void getEnvironmentBrowser(String environmentName, String url) {
+	// switch (environmentName) {
+	// case "dev":
+	// driver.get(url);
+	// break;
+	// case "testing":
+	// driver.get(url);
+	// break;
+	// default:
+	// throw new RuntimeException("Environment name invalid.");
+	// }
+	// }
 
 	protected int generatorNumberRandom() {
 		Random rand = new Random();

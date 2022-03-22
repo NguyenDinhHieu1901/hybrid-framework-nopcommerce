@@ -20,7 +20,7 @@ public class Level_18_Sort_Display_Paging extends BaseTest {
 		homePageObject = PageGeneratorManager.getUserHomePage(driver);
 
 		log.info("Pre-condition - Step 02: Open Submenu 'Notebooks' page");
-		homePageObject.openPagesAtMenuByName(driver, "Computers ", "Notebooks ");
+		homePageObject.openSubMenuByPageName(driver, "Computers ", "Notebooks ");
 		notebooksPageObject = PageGeneratorManager.getUserNotebooksPage(driver);
 	}
 

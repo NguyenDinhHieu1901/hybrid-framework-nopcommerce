@@ -58,4 +58,20 @@ public class PageGeneratorManager {
 	public static UserNotebooksPageObject getUserNotebooksPage(WebDriver driver) {
 		return new UserNotebooksPageObject(driver);
 	}
+
+	public static UserWishlistPageObject getUserWishlistPage(WebDriver driver) {
+		return new UserWishlistPageObject(driver);
+	}
+
+	public static UserShoppingCartPageObject getUserShoppingCartPage(WebDriver driver) {
+		return new UserShoppingCartPageObject(driver);
+	}
+
+	public static UserCompareProductPageObject getUserCompareProductPage(WebDriver driver) {
+		return new UserCompareProductPageObject(driver);
+	}
+
+	public static UserRecentlyViewedProductsPO getUserRecentlyViewedPage(WebDriver driver) {
+		return new UserRecentlyViewedProductsPO(driver);
+	}
 }

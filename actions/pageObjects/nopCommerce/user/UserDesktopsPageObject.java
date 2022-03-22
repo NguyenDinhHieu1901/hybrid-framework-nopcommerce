@@ -37,5 +37,4 @@ public class UserDesktopsPageObject extends BasePage {
 		waitForClickable(driver, UserDesktopsPageUI.SUBMIT_REVIEW_BUTTON);
 		clickToElement(driver, UserDesktopsPageUI.SUBMIT_REVIEW_BUTTON);
 	}
-
 }

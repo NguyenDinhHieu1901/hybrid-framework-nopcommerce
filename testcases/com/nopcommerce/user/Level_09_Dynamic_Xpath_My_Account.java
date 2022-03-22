@@ -160,7 +160,7 @@ public class Level_09_Dynamic_Xpath_My_Account extends BaseTest {
 	@Test
 	public void My_Account_04_My_Product_Review() {
 		System.out.println("My_Account_04 - step 1: hover to Computers menu and click to Desktops submenu");
-		homePageObject.openPagesAtMenuByName(driver, "Computers ", "Desktops ");
+		homePageObject.openSubMenuByPageName(driver, "Computers ", "Desktops ");
 		desktopsPageObject = PageGeneratorManager.getUserDesktopsPage(driver);
 
 		System.out.println("My_Account_04 - step 2: Click to build your own computer link");
