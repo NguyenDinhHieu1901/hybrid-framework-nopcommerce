@@ -23,7 +23,7 @@ public class AdminProductDetailPageObject extends BasePage {
 	public void deleteExistImageByProductName(String productName, String buttonName) {
 		waitForElementInvisible(driver, AdminProductDetailPageUI.AJAX_LOADING);
 		productName = productName.replace(" ", "-").toLowerCase();
-		if (isElementDisplay(driver, AdminProductDetailPageUI.IMAGE_TABLE_DEFAULT, productName)) {
+		if (isElementDisplayed(driver, AdminProductDetailPageUI.IMAGE_TABLE_DEFAULT, productName)) {
 			waitForClickable(driver, AdminProductDetailPageUI.DELETE_BUTTON_BY_NAME_IMAGE, productName, buttonName);
 			clickToElement(driver, AdminProductDetailPageUI.DELETE_BUTTON_BY_NAME_IMAGE, productName, buttonName);
 			acceptAlert(driver);
@@ -46,7 +46,7 @@ public class AdminProductDetailPageObject extends BasePage {
 		waitForElementInvisible(driver, AdminProductDetailPageUI.AJAX_LOADING);
 		fileName = fileName.split("\\.")[0];
 		waitForElementVisible(driver, AdminProductDetailPageUI.UPLOADED_IMAGE_SUCCESS_BY_FILE_NAME, fileName);
-		return isElementDisplay(driver, AdminProductDetailPageUI.UPLOADED_IMAGE_SUCCESS_BY_FILE_NAME, fileName);
+		return isElementDisplayed(driver, AdminProductDetailPageUI.UPLOADED_IMAGE_SUCCESS_BY_FILE_NAME, fileName);
 	}
 
 	public void enterToAltTextbox(String valueText) {
@@ -71,7 +71,7 @@ public class AdminProductDetailPageObject extends BasePage {
 
 	public boolean isPictureImageDisplayed(String productName, String displayOrder, String altName, String titleName) {
 		productName = productName.replace(" ", "-").toLowerCase();
-		return isElementDisplay(driver, AdminProductDetailPageUI.PICTURE_TABLE_BY_IMAGE_ORDER_ALT_TITLE, productName, displayOrder, altName, titleName);
+		return isElementDisplayed(driver, AdminProductDetailPageUI.PICTURE_TABLE_BY_IMAGE_ORDER_ALT_TITLE, productName, displayOrder, altName, titleName);
 	}
 
 	public AdminProductSearchPageObject clickToSaveButton(String buttonName) {
@@ -87,7 +87,7 @@ public class AdminProductDetailPageObject extends BasePage {
 
 	public boolean isSuccessMessageDisplayed() {
 		waitForElementVisible(driver, AdminProductDetailPageUI.SUCCESS_MESSAGE);
-		return isElementDisplay(driver, AdminProductDetailPageUI.SUCCESS_MESSAGE);
+		return isElementDisplayed(driver, AdminProductDetailPageUI.SUCCESS_MESSAGE);
 	}
 
 	public void deleteImageByProductName(String productName, String buttonName) {

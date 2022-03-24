@@ -148,7 +148,7 @@ public class UserNotebooksPageObject extends BasePage {
 
 	public boolean isPageIconDisplayedByClass(String className) {
 		waitForElementVisible(driver, UserNotebooksPageUI.PAGE_ICON_BY_CLASS, className);
-		return isElementDisplay(driver, UserNotebooksPageUI.PAGE_ICON_BY_CLASS, className);
+		return isElementDisplayed(driver, UserNotebooksPageUI.PAGE_ICON_BY_CLASS, className);
 	}
 
 	public void clickToPageIconByClass(String className) {

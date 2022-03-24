@@ -18,7 +18,7 @@ public class RegisterPageObject extends BasePage {
 	}
 
 	public boolean isConfirmEmailTextboxDisplayed() {
-		return isElementDisplay(driver, RegisterPageUI.CONFIRM_EMAIL_TEXTBOX);
+		return isElementDisplayed(driver, RegisterPageUI.CONFIRM_EMAIL_TEXTBOX);
 	}
 
 	public boolean isLoginButtonUndisplayed() {

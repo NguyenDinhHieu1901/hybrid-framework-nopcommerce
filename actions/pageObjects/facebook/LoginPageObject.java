@@ -29,7 +29,7 @@ public class LoginPageObject extends BasePage {
 
 	public boolean isErrorMessagesDisplayedAtEmailTextbox() {
 		waitForElementVisible(driver, LoginPageUI.EMAIL_ADDRESS_ERROR_MESSAGE);
-		return isElementDisplay(driver, LoginPageUI.EMAIL_ADDRESS_ERROR_MESSAGE);
+		return isElementDisplayed(driver, LoginPageUI.EMAIL_ADDRESS_ERROR_MESSAGE);
 	}
 
 	public boolean isErrorMessagesUndisplayedAtEmailTextbox() {

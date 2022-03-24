@@ -20,7 +20,7 @@ public class HomePageObject extends BasePage {
 
 	public boolean isPageActivedByNumber(String pageNumber) {
 		waitForElementVisible(driver, HomePageUI.PAGE_NUMBER_ACTIVED);
-		return isElementDisplay(driver, HomePageUI.PAGE_NUMBER_ACTIVED);
+		return isElementDisplayed(driver, HomePageUI.PAGE_NUMBER_ACTIVED);
 	}
 
 	public void inputToHeaderTextboxByName(String headerName, String valueText) {
@@ -37,7 +37,7 @@ public class HomePageObject extends BasePage {
 
 	public boolean isRowValueDisplayed(String femaleValue, String countryName, String maleValue, String totalValue) {
 		waitForElementVisible(driver, HomePageUI.ROW_VALUE_BY_FEMALE_COUNTRY_MALE_TOTAL, femaleValue, countryName, maleValue, totalValue);
-		return isElementDisplay(driver, HomePageUI.ROW_VALUE_BY_FEMALE_COUNTRY_MALE_TOTAL, femaleValue, countryName, maleValue, totalValue);
+		return isElementDisplayed(driver, HomePageUI.ROW_VALUE_BY_FEMALE_COUNTRY_MALE_TOTAL, femaleValue, countryName, maleValue, totalValue);
 	}
 
 	public void clickToAppendRowButton() {

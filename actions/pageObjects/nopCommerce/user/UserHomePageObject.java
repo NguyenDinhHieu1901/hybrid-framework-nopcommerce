@@ -66,7 +66,7 @@ public class UserHomePageObject extends BasePage {
 	@Step("Verify My Account Link is displayed")
 	public boolean isMyAccountLinkDisplayed() {
 		waitForElementVisible(driver, UserHomePageUI.MY_ACCOUNT_LINK);
-		return isElementDisplay(driver, UserHomePageUI.MY_ACCOUNT_LINK);
+		return isElementDisplayed(driver, UserHomePageUI.MY_ACCOUNT_LINK);
 	}
 
 }

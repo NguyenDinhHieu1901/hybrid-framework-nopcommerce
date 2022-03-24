@@ -29,6 +29,7 @@ import pageObjects.nopCommerce.user.UserCustomerInfoPageObject;
 import pageObjects.nopCommerce.user.UserHomePageObject;
 import pageObjects.nopCommerce.user.UserMyProductReviewsPageObject;
 import pageObjects.nopCommerce.user.UserRewardPointPageObject;
+import pageObjects.nopCommerce.user.UserShoppingCartPageObject;
 import pageObjects.nopCommerce.user.UserWishlistPageObject;
 import pageUIs.nopCommerce.admin.AdminBasePageUI;
 import pageUIs.nopCommerce.user.BasePageUI;
@@ -97,6 +98,10 @@ public class BasePage {
 
 	public void sendkeyToAlert(WebDriver driver, String textValue) {
 		waitForAlertPresence(driver).sendKeys(textValue);
+	}
+
+	public void isAlertPresence(WebDriver driver) {
+		((JavascriptExecutor) driver).executeScript("window.confirm = function(msg) { return true; }");
 	}
 
 	public void switchToWindonByID(WebDriver driver, String oppositeWindow) {
@@ -285,6 +290,16 @@ public class BasePage {
 		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).getAttribute(textValue);
 	}
 
+	protected void setElementAttribute(WebDriver driver, String locatorType, String attributeName, String textValue) {
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", getWebElement(driver, locatorType), attributeName, textValue);
+	}
+
+	protected void setElementAttribute(WebDriver driver, String locatorType, String attributeName, String textValue, String... dynamicValues) {
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("arguments[0].setAttribute(arguments[1], arguments[2]);", getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)), attributeName, textValue);
+	}
+
 	protected String getElementCssValue(WebDriver driver, String locatorType, String propertyName) {
 		return getWebElement(driver, locatorType).getCssValue(propertyName);
 	}
@@ -329,21 +344,21 @@ public class BasePage {
 		}
 	}
 
-	// protected boolean isElementDisplay(WebDriver driver, String locatorType) {
-	// return getWebElement(driver, locatorType).isDisplayed();
-	// }
-
 	protected boolean isElementDisplayed(WebDriver driver, String locatorType) {
-		try {
-			WebElement element = driver.findElement(By.xpath(locatorType));
-			return element.isDisplayed();
-		} catch (Exception e) {
-			System.out.println("Exception = " + e.getMessage());
-			return false;
-		}
+		return getWebElement(driver, locatorType).isDisplayed();
 	}
 
-	protected boolean isElementDisplay(WebDriver driver, String locatorType, String... dynamicValues) {
+	// protected boolean isElementDisplayed(WebDriver driver, String locatorType) {
+	// try {
+	// WebElement element = driver.findElement(By.xpath(locatorType));
+	// return element.isDisplayed();
+	// } catch (Exception e) {
+	// System.out.println("Exception = " + e.getMessage());
+	// return false;
+	// }
+	// }
+
+	protected boolean isElementDisplayed(WebDriver driver, String locatorType, String... dynamicValues) {
 		return getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)).isDisplayed();
 	}
 
@@ -470,7 +485,17 @@ public class BasePage {
 
 	protected void scrollToElement(WebDriver driver, String locatorType, String... dynamicValues) {
 		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-		jsExecutor.executeScript("arguments[0].scrollIntoView(false);", getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)));
+		jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)));
+	}
+
+	protected void clickToElemntByJS(WebDriver driver, String locatorType) {
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("arguments[0].click();", getWebElement(driver, locatorType));
+	}
+
+	protected void clickToElemntByJS(WebDriver driver, String locatorType, String... dynamicValues) {
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
+		jsExecutor.executeScript("arguments[0].click();", getWebElement(driver, getDynamicLocator(locatorType, dynamicValues)));
 	}
 
 	protected void removeAttributeOfElement(WebDriver driver, String locatorType, String expectedAttribute) {
@@ -703,9 +728,15 @@ public class BasePage {
 	}
 
 	@Step("Click to {1} Radio button")
-	public void clickToRadioButtonByText(WebDriver driver, String textLabel) {
+	public void checkToCheckboxOrRadioByLabel(WebDriver driver, String textLabel) {
 		waitForClickable(driver, BasePageUI.RADIO_BUTTON_BY_TEXT, textLabel);
-		clickToElement(driver, BasePageUI.RADIO_BUTTON_BY_TEXT, textLabel);
+		checkToDefaultCheckboxRadio(driver, BasePageUI.RADIO_BUTTON_BY_TEXT, textLabel);
+	}
+
+	@Step("Click to {1} Radio button")
+	public void uncheckToCheckboxByLabel(WebDriver driver, String textLabel) {
+		waitForClickable(driver, BasePageUI.RADIO_BUTTON_BY_TEXT, textLabel);
+		uncheckToDefaultCheckbox(driver, BasePageUI.RADIO_BUTTON_BY_TEXT, textLabel);
 	}
 
 	@Step("Click to {1} button")
@@ -716,6 +747,7 @@ public class BasePage {
 
 	@Step("Select {2} in Dropdown list with attribute: {1} ")
 	public void selectItemInDropdownByName(WebDriver driver, String dropdownName, String textItem) {
+		waitForClickable(driver, BasePageUI.DROPDOWN_LIST_BY_NAME, dropdownName);
 		selectItemInDefaultDropdown(driver, BasePageUI.DROPDOWN_LIST_BY_NAME, textItem, dropdownName);
 	}
 
@@ -733,6 +765,7 @@ public class BasePage {
 
 	public String getAmountOfProductByClass(WebDriver driver, String className) {
 		waitForElementVisible(driver, BasePageUI.AMOUNT_OF_PRODUCT_BY_CLASS, className);
+		scrollToElement(driver, BasePageUI.AMOUNT_OF_PRODUCT_BY_CLASS, className);
 		String amoutProduct = getElementText(driver, BasePageUI.AMOUNT_OF_PRODUCT_BY_CLASS, className);
 		return amoutProduct.replaceAll("[()]", "");
 	}
@@ -758,6 +791,48 @@ public class BasePage {
 		scrollToElement(driver, BasePageUI.FOOTER_PAGE_BY_NAME, pageName);
 		waitForClickable(driver, BasePageUI.FOOTER_PAGE_BY_NAME, pageName);
 		clickToElement(driver, BasePageUI.FOOTER_PAGE_BY_NAME, pageName);
+	}
+
+	public int getQuantityOfSatisfyProduct(WebDriver driver, String attributeName) {
+		waitForElementVisible(driver, BasePageUI.GET_AMOUT_OF_PRODUCT);
+		return Integer.valueOf(getElementAttribute(driver, BasePageUI.GET_AMOUT_OF_PRODUCT, attributeName));
+	}
+
+	public String getUnitPriceOfProduct(WebDriver driver) {
+		waitForElementVisible(driver, BasePageUI.GET_UNIT_PRICE);
+		return getElementText(driver, BasePageUI.GET_UNIT_PRICE);
+	}
+
+	public Float convertPriceFromStringToFloat(String price) {
+		return Float.valueOf(price.replaceAll("[$,]", ""));
+	}
+
+	public boolean isCountProductTitleDisplayed(WebDriver driver, String classValue, String title) {
+		hoverMouseToElement(driver, BasePageUI.SHOPPING_CART_LINK);
+		return getElementText(driver, BasePageUI.INFORMATION_IN_SHOPPING_CART, classValue).contains(title);
+	}
+
+	public boolean isInformationOfProductDisplayed(WebDriver driver, String classValue, String attributeName) {
+		hoverMouseToElement(driver, BasePageUI.SHOPPING_CART_LINK);
+		return getElementText(driver, BasePageUI.INFORMATION_IN_SHOPPING_CART, classValue).contains(attributeName);
+	}
+
+	public boolean isTotalPriceDisplayed(WebDriver driver, String classValue, Float totalPrice) {
+		hoverMouseToElement(driver, BasePageUI.SHOPPING_CART_LINK);
+		String priceByString = getElementText(driver, BasePageUI.INFORMATION_IN_SHOPPING_CART, classValue).split(": ")[1];
+		return convertPriceFromStringToFloat(priceByString).equals(totalPrice);
+	}
+
+	public UserShoppingCartPageObject clickToShoppingCartLink(WebDriver driver) {
+		waitForElementInvisible(driver, BasePageUI.AJAX_LOADING_IN_PRODUCT_PAGE);
+		waitForClickable(driver, BasePageUI.SHOPPING_CART_LINK);
+		clickToElement(driver, BasePageUI.SHOPPING_CART_LINK);
+		return PageGeneratorManager.getUserShoppingCartPage(driver);
+	}
+
+	public void setAmoutOfProduct(WebDriver driver, String attribueValue, String amount) {
+		waitForElementVisible(driver, BasePageUI.QUANTITY_INPUT);
+		setElementAttribute(driver, BasePageUI.QUANTITY_INPUT, attribueValue, amount);
 	}
 
 	private long longTimeout = GlobalConstants.LONG_TIMEOUT;

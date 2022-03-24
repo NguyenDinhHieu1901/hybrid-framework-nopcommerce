@@ -23,7 +23,7 @@ public class UserRecentlyViewedProductsPO extends BasePage {
 		List<String> productsList = getAllElementText(driver, UserRecentlyViewedProductsPageUI.PRODUCTS_LIST);
 		for (String product : productsList) {
 			if (product.equals(pageName)) {
-				return isElementDisplay(driver, UserRecentlyViewedProductsPageUI.PRODUCTS_LINK_BY_NAME, pageName);
+				return isElementDisplayed(driver, UserRecentlyViewedProductsPageUI.PRODUCTS_LINK_BY_NAME, pageName);
 			}
 		}
 		return false;

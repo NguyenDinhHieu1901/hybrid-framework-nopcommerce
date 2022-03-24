@@ -6,9 +6,9 @@ import commons.BasePage;
 import pageUIs.nopCommerce.user.UserDesktopsPageUI;
 
 public class UserDesktopsPageObject extends BasePage {
-	
+
 	private WebDriver driver;
-	
+
 	public UserDesktopsPageObject(WebDriver driver) {
 		this.driver = driver;
 	}
@@ -36,5 +36,20 @@ public class UserDesktopsPageObject extends BasePage {
 	public void clickToSubmitReviewButton() {
 		waitForClickable(driver, UserDesktopsPageUI.SUBMIT_REVIEW_BUTTON);
 		clickToElement(driver, UserDesktopsPageUI.SUBMIT_REVIEW_BUTTON);
+	}
+
+	public void selectItemInProcessorAndRamDropdown(String idValue, String valueText) {
+		waitForClickable(driver, UserDesktopsPageUI.SELECT_ITEM_BY_ID, idValue);
+		selectItemInDefaultDropdown(driver, UserDesktopsPageUI.SELECT_ITEM_BY_ID, valueText, idValue);
+	}
+
+	public void checkToCheckboxOrRadioByLabel(String labelText) {
+		waitForClickable(driver, UserDesktopsPageUI.DYNAMIC_CHECKBOX_RADIO_BY_LABEL, labelText);
+		checkToDefaultCheckboxRadio(driver, UserDesktopsPageUI.DYNAMIC_CHECKBOX_RADIO_BY_LABEL, labelText);
+	}
+
+	public void uncheckToCheckboxByLabel(String labelText) {
+		waitForClickable(driver, UserDesktopsPageUI.DYNAMIC_CHECKBOX_RADIO_BY_LABEL, labelText);
+		uncheckToDefaultCheckbox(driver, UserDesktopsPageUI.DYNAMIC_CHECKBOX_RADIO_BY_LABEL, labelText);
 	}
 }

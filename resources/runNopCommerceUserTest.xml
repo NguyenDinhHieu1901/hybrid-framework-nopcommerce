@@ -19,8 +19,8 @@
 	<test name="Run on Firefox">
 		<parameter name="browser" value="firefox" />
 		<classes>
-			<!-- <class name="com.nopcommerce.commons.Commons_01_Login" /> -->
-			<class name="com.nopcommerce.product.Level_22_Wishlist_Compare_Recent_View" />
+			<class name="com.nopcommerce.commons.Commons_01_Login" />
+			<class name="com.nopcommerce.payment.OrderProductsByCash" />
 		</classes>
 	</test>
 

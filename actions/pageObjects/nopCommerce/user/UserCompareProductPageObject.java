@@ -14,7 +14,7 @@ public class UserCompareProductPageObject extends BasePage {
 
 	public boolean IsDataTableByClassAndTextDisplayed(String classRow, String textColumn) {
 		waitForElementVisible(driver, UserCompareProductsPageUI.DATA_TABLE_BY_CLASS_AND_TEXT, classRow, textColumn);
-		return isElementDisplay(driver, UserCompareProductsPageUI.DATA_TABLE_BY_CLASS_AND_TEXT, classRow, textColumn);
+		return isElementDisplayed(driver, UserCompareProductsPageUI.DATA_TABLE_BY_CLASS_AND_TEXT, classRow, textColumn);
 	}
 
 	public void clickToClearListButton() {
@@ -24,7 +24,7 @@ public class UserCompareProductPageObject extends BasePage {
 
 	public boolean isNoItemsToCompareMessageDisplayed(String message) {
 		waitForElementVisible(driver, UserCompareProductsPageUI.NO_ITEMS_MESSAGE, message);
-		return isElementDisplay(driver, UserCompareProductsPageUI.NO_ITEMS_MESSAGE, message);
+		return isElementDisplayed(driver, UserCompareProductsPageUI.NO_ITEMS_MESSAGE, message);
 	}
 
 	public boolean isProductUndisplayedByClassAndText(String classRow, String textColumn) {

@@ -33,11 +33,11 @@ public class AdminProductSearchPageObject extends BasePage {
 
 	public boolean isSuccessMessageDisplayed() {
 		waitForElementVisible(driver, AdminProductSearchPageUI.SUCCESS_UPDATE_MESSAGE);
-		return isElementDisplay(driver, AdminProductSearchPageUI.SUCCESS_UPDATE_MESSAGE);
+		return isElementDisplayed(driver, AdminProductSearchPageUI.SUCCESS_UPDATE_MESSAGE);
 	}
 
 	public boolean isPictureImageDisplayed(String productNameConverted, String productName) {
 		productNameConverted = productNameConverted.replace(" ", "-").toLowerCase();
-		return isElementDisplay(driver, AdminProductSearchPageUI.PRODUCT_IMAGE_BY_PRODUCT_NAME, productNameConverted, productName);
+		return isElementDisplayed(driver, AdminProductSearchPageUI.PRODUCT_IMAGE_BY_PRODUCT_NAME, productNameConverted, productName);
 	}
 }

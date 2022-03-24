@@ -38,7 +38,7 @@ public class Level_17_Register_Login_Pattern_Object extends BaseTest {
 		registerPageObject = PageGeneratorManager.getUserRegisterPage(driver);
 
 		log.info("User_01_Register - Step 02: Click to Male radio button");
-		registerPageObject.clickToRadioButtonByText(driver, "Male");
+		registerPageObject.checkToCheckboxOrRadioByLabel(driver, "Male");
 
 		log.info("User_01_Register - Step 03: Input to First name textbox with value: " + firstName);
 		registerPageObject.sendkeyToTextboxByID(driver, "FirstName", firstName);

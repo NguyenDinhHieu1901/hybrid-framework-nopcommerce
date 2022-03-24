@@ -27,4 +27,9 @@ public class BasePageUI {
 	public static final String CLOSE_MESSAGE_ICON = "xpath=//div[@id='bar-notification']//span[@class='close']";
 	public static final String ADD_TO_COMPARE_LIST_BUTTON_BY_PRODUCT_NAME = "xpath=//a[text()='%s']/parent::h2/following-sibling::div[@class='add-info']//button[text()='Add to compare list']";
 	public static final String FOOTER_PAGE_BY_NAME = "xpath=//div[@class='footer']//a[text()='%s']";
+	public static final String GET_AMOUT_OF_PRODUCT = "xpath=//input[@id='product_enteredQuantity_1']";
+	public static final String GET_UNIT_PRICE = "xpath=//div[@class='product-price']/span";
+	public static final String INFORMATION_IN_SHOPPING_CART = "xpath=//div[@class='mini-shopping-cart']//div[@class='%s']";
+	public static final String SHOPPING_CART_LINK = "xpath=//a[@class='ico-cart']";
+	public static final String QUANTITY_INPUT = "xpath=//input[@class='qty-input']";
 }

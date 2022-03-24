@@ -51,6 +51,14 @@
 		<appender-ref ref="reportng" />
 	</category>
 
+	<category name="com.nopcommerce.payment">
+		<priority value="all" />
+		<appender-ref ref="console" />
+		<appender-ref ref="logfile" />
+		<appender-ref ref="file" />
+		<appender-ref ref="reportng" />
+	</category>
+
 	<category name="com.facebook.user">
 		<priority value="all" />
 		<appender-ref ref="console" />

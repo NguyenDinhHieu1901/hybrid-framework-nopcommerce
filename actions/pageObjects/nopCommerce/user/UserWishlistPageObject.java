@@ -30,6 +30,6 @@ public class UserWishlistPageObject extends BasePage {
 
 	public boolean isEmptyMessageDisplayed(String message) {
 		waitForElementVisible(driver, UserWishlistPageUI.EMPTY_MESSAGE, message);
-		return isElementDisplay(driver, UserWishlistPageUI.EMPTY_MESSAGE, message);
+		return isElementDisplayed(driver, UserWishlistPageUI.EMPTY_MESSAGE, message);
 	}
 }

@@ -74,4 +74,12 @@ public class PageGeneratorManager {
 	public static UserRecentlyViewedProductsPO getUserRecentlyViewedPage(WebDriver driver) {
 		return new UserRecentlyViewedProductsPO(driver);
 	}
+
+	public static UserCheckoutPageObject getUserCheckoutPage(WebDriver driver) {
+		return new UserCheckoutPageObject(driver);
+	}
+
+	public static UserMyAccountPageObject getUserMyAccountPage(WebDriver driver) {
+		return new UserMyAccountPageObject(driver);
+	}
 }
